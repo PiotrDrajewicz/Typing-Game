@@ -1,5 +1,9 @@
-const SinglePanel = () => {
-  return <h3>This is single panel component</h3>;
+const SinglePanel = ({ word }) => {
+  return (
+    <article className="single-panel">
+      <h3 className="panel-word">{word}</h3>
+    </article>
+  );
 };
 
 export default SinglePanel;
