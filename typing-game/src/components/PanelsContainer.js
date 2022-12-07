@@ -8,6 +8,7 @@ const PanelsContainer = () => {
     "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
   const [text, setText] = useState(defaultText);
   const [wordsOnly, setWordsOnly] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   // let wordsOnly = [];
 
   const splitText = (text) => {
@@ -24,17 +25,38 @@ const PanelsContainer = () => {
     setWordsOnly(wordsOnlyArr);
   };
 
+  const updateInput = (e) => {
+    setInputValue(e.target.value);
+    console.log(inputValue);
+  };
+
   useEffect(() => {
     splitText(text);
   }, []);
 
   return (
-    <section className="panels-container">
-      {wordsOnly.map((word) => {
-        const generatedId = nextId();
-        return <SinglePanel key={generatedId} word={word} />;
-      })}
-    </section>
+    <>
+      <section className="input-section">
+        <input
+          type="text"
+          id="input-window"
+          value={inputValue}
+          onChange={updateInput}
+        />
+      </section>
+      <section className="panels-container">
+        {wordsOnly.map((word) => {
+          const generatedId = nextId();
+          return (
+            <SinglePanel
+              key={generatedId}
+              word={word}
+              inputValue={inputValue}
+            />
+          );
+        })}
+      </section>
+    </>
   );
 };
 

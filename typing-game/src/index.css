@@ -43,5 +43,6 @@ body {
   /* flex-grow: 0; */
 }
 
-.panel-word {
+.panel-letter {
+  color: white;
 }
