@@ -22,17 +22,17 @@ const SinglePanel = ({ word, inputValue }) => {
     console.log("check wywołanie");
     console.log(splittedWord);
     console.log(splittedInput);
-    // if (splittedWord.length > 0 && splittedInput.length > 0) {
-    //   console.log("przeszło");
-    //   for (let i = 0; 3; i++) {
-    //     console.log("word input", splittedWord, splittedInput);
-    // if (splittedWord[i] === splittedInput[i]) {
-    //   console.log(true);
-    // } else {
-    //   console.log(false);
-    // }
-    //   }
-    // }
+    if (splittedWord.length > 0 && splittedInput.length > 0) {
+      console.log("przeszło");
+      // for (let i = 0; 3; i++) {
+      //   console.log("word input", splittedWord, splittedInput);
+      // if (splittedWord[i] === splittedInput[i]) {
+      //   console.log(true);
+      // } else {
+      //   console.log(false);
+      // }
+      // }
+    }
   };
 
   // useEffect(() => {
@@ -55,7 +55,6 @@ const SinglePanel = ({ word, inputValue }) => {
 
   return (
     <>
-      <button onClick={checkLetterMatch}>start</button>
       <article className="single-panel">
         {splittedWord.map((letter) => {
           const letterId = nextId();
