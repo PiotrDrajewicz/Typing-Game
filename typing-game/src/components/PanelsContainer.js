@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import SinglePanel from "./SinglePanel";
 import nextId from "react-id-generator";
 
@@ -9,7 +9,7 @@ const PanelsContainer = () => {
   const [text, setText] = useState(defaultText);
   const [wordsOnly, setWordsOnly] = useState([]);
   const [inputValue, setInputValue] = useState("");
-  // let wordsOnly = [];
+  const inputWindow = useRef(null);
 
   const splitText = (text) => {
     const regexWordsNumbers = /(\w+)/gi;
@@ -25,13 +25,15 @@ const PanelsContainer = () => {
     setWordsOnly(wordsOnlyArr);
   };
 
-  const updateInput = (e) => {
-    setInputValue(e.target.value);
-    console.log(inputValue);
+  const updateInput = () => {
+    // setInputValue(e.target.value);
+    setInputValue(inputWindow.current.value);
+    // console.log(inputValue);
   };
 
   useEffect(() => {
     splitText(text);
+    inputWindow.current.focus();
   }, []);
 
   return (
@@ -41,6 +43,7 @@ const PanelsContainer = () => {
           type="text"
           id="input-window"
           value={inputValue}
+          ref={inputWindow}
           onChange={updateInput}
         />
       </section>
