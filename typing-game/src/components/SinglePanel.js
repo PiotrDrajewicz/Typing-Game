@@ -1,80 +1,72 @@
-import { useEffect, useState, useRef, useMemo } from "react";
+import { useEffect, useState, useRef, useMemo, memo } from "react";
 import nextId from "react-id-generator";
 import React from "react";
 
 const SinglePanel = ({ word, inputValue }) => {
-  const [splittedWord, setSplittedWord] = useState([]);
-  let [currentLetter, setCurrentLetter] = useState("");
-  currentLetter = useRef(null);
-  // const letterRefs = useRef([]);
-  // letterRefs.current = [];
+  // const [splittedWord, setSplittedWord] = useState([]);
+  // const [splittedInput, setSplittedInput] = useState([]);
+  const { current: splittedWord } = useRef(word.split(""));
+  const { current: splittedInput } = useRef(inputValue.split(""));
 
-  const refsById = useMemo(() => {
-    const refs = {};
-    splittedWord.map((letter) => {
-      refs[letter.id] = React.createRef(null);
-    });
-    return refs;
-  }, [splittedWord]);
-
-  const splitIntoLetters = (word) => {
-    const letters = word.split("");
-    setSplittedWord(letters);
-  };
-
-  const giveId = () => {
-    splittedWord.map((letter) => {
-      letter.id = `${letter}-${word}`;
-    });
-  };
-
-  const handleClick = (letter) => {
-    console.log(refsById[letter.id].current);
-  };
-
-  // const addLetterToRefs = (letter) => {
-  //   if (letter && !letterRefs.current.includes(letter)) {
-  //     letterRefs.current.push(letter);
-  //   }
+  // const splitWordIntoLetters = () => {
+  //   const letters = word.split("");
+  //   setSplittedWord(letters);
   // };
 
-  // const checkLetterMatch = () => {
-  //   const splittedInput = inputValue.split("");
-  //   for (let i = 0; splittedInput.length; i++) {
-  //     // setCurrentLetter(splittedWord[i]);
-  //     if (splittedWord[i] === splittedInput[i]) {
-  //       currentLetter.current.style.color = "green";
-  //     }
-  //   }
+  // const splitInputIntoLetters = () => {
+  //   const letters = inputValue.split("");
+  //   setSplittedInput(letters);
   // };
+
+  const checkLetterMatch = () => {
+    console.log("check wywołanie");
+    console.log(splittedWord);
+    console.log(splittedInput);
+    // if (splittedWord.length > 0 && splittedInput.length > 0) {
+    //   console.log("przeszło");
+    //   for (let i = 0; 3; i++) {
+    //     console.log("word input", splittedWord, splittedInput);
+    // if (splittedWord[i] === splittedInput[i]) {
+    //   console.log(true);
+    // } else {
+    //   console.log(false);
+    // }
+    //   }
+    // }
+  };
+
+  // useEffect(() => {
+  //   splitWordIntoLetters();
+  //   // splitInputIntoLetters();
+  // }, [splittedInput]);
+
+  // console.log(word);
 
   useEffect(() => {
-    splitIntoLetters(word);
-    giveId();
-  }, []);
-  // console.log(letterRefs.current);
+    checkLetterMatch();
+  }, [splittedInput]);
+
+  // console.log(splittedWord);
+  // console.log(splittedInput);
+
   // useEffect(() => {
   //   checkLetterMatch();
   // }, [inputValue]);
 
   return (
     <>
+      <button onClick={checkLetterMatch}>start</button>
       <article className="single-panel">
-        {splittedWord.map((letter, index) => {
+        {splittedWord.map((letter) => {
           const letterId = nextId();
           return (
-            <>
-              <h3
-                key={letterId}
-                className="panel-letter"
-                ref={refsById[letter.id]}
-              >
-                {letter}
-              </h3>
-              <button key={index} onClick={() => handleClick(letter)}>
-                click
-              </button>
-            </>
+            <h3
+              key={letterId}
+              className="panel-letter"
+              id={`${letter}-${word}`}
+            >
+              {letter}
+            </h3>
           );
         })}
       </article>

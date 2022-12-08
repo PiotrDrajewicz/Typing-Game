@@ -1,15 +1,18 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback, memo } from "react";
 import SinglePanel from "./SinglePanel";
 import nextId from "react-id-generator";
 
+// const defaultText =
+//   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
+const defaultText = "This.";
+
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
-  const defaultText =
-    "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
   const [text, setText] = useState(defaultText);
   const [wordsOnly, setWordsOnly] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const inputWindow = useRef(null);
+  const renderr = useRef(0);
 
   const splitText = (text) => {
     const regexWordsNumbers = /(\w+)/gi;
@@ -34,10 +37,11 @@ const PanelsContainer = () => {
   useEffect(() => {
     splitText(text);
     inputWindow.current.focus();
-  }, []);
+  }, [text]);
 
   return (
     <>
+      <h2>count: {renderr.current++}</h2>
       <section className="input-section">
         <input
           type="text"
