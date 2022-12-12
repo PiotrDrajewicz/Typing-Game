@@ -40,14 +40,9 @@ const SinglePanel = ({ word, inputValue }) => {
   //   // splitInputIntoLetters();
   // }, [splittedInput]);
 
-  // console.log(word);
-
   useEffect(() => {
     checkLetterMatch();
   }, [splittedInput]);
-
-  // console.log(splittedWord);
-  // console.log(splittedInput);
 
   // useEffect(() => {
   //   checkLetterMatch();
