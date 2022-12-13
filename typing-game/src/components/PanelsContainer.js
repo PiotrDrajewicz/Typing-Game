@@ -52,11 +52,13 @@ const PanelsContainer = () => {
         />
       </section>
       <section className="panels-container">
-        {wordsOnly.map((word) => {
-          const generatedId = nextId();
+        {wordsOnly.map((word, index) => {
+          // const generatedId = nextId();
           return (
             <SinglePanel
-              key={generatedId}
+              // key={generatedId}
+              // key={new Date().getTime().toString()}
+              key={index}
               word={word}
               inputValue={inputValue}
             />
