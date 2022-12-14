@@ -57,8 +57,8 @@ const PanelsContainer = () => {
           return (
             <SinglePanel
               // key={generatedId}
-              // key={new Date().getTime().toString()}
-              key={index}
+              key={new Date().getTime().toString()}
+              // key={index}
               word={word}
               inputValue={inputValue}
             />
