@@ -44,11 +44,13 @@ const SinglePanel = ({ word, inputValue }) => {
     }
   };
 
-  const kupa = (index) => {
+  const checkMatch = (index, splittedWord, splittedInput) => {
     if (splittedWord[index] === splittedInput[index]) {
-      console.log(true);
+      console.log("green");
+      return "green";
     } else {
-      console.log(false);
+      console.log("red");
+      return "red";
     }
   };
 
@@ -72,17 +74,14 @@ const SinglePanel = ({ word, inputValue }) => {
         {splittedWord.map((letter, index) => {
           // const letterId = nextId();
           return (
-            <h3
-              // key={letterId}
+            <SingleLetter
               key={index}
-              // index={index}
-              className="panel-letter"
-              id={`${letter}-${word}`}
-              // data-checkMatch={checkMatch}
-              data-gowno={() => kupa()}
-            >
-              {letter}
-            </h3>
+              index={index}
+              letter={letter}
+              splittedWord={splittedWord}
+              splittedInput={splittedInput}
+              checkMatch={checkMatch}
+            />
           );
         })}
       </article>
