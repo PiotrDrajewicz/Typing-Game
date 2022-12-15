@@ -36,7 +36,6 @@ const SinglePanel = ({ word, inputValue }) => {
         if (letter === splittedWord[index]) {
           console.log("takie same");
           // splittedWord[index].style.color = "green";
-          return <h1>lolo</h1>;
         } else {
           console.log("inne");
         }
@@ -44,13 +43,17 @@ const SinglePanel = ({ word, inputValue }) => {
     }
   };
 
+  // const checkWholeWord = (splittedWord, splittedInput) => {
+  //   isWholeCorrect = splitted;
+  // };
+
   const checkMatch = (index, splittedWord, splittedInput) => {
     if (splittedWord[index] === splittedInput[index]) {
-      console.log("green");
-      return "green";
+      // console.log("green");
+      return "letter-green";
     } else {
-      console.log("red");
-      return "red";
+      // console.log("red");
+      return "letter-red";
     }
   };
 
@@ -73,6 +76,9 @@ const SinglePanel = ({ word, inputValue }) => {
       <article className="single-panel">
         {splittedWord.map((letter, index) => {
           // const letterId = nextId();
+          const color = checkMatch(index, splittedWord, splittedInput);
+          const lettersArr = [];
+          lettersArr.push(letter);
           return (
             <SingleLetter
               key={index}
@@ -80,7 +86,9 @@ const SinglePanel = ({ word, inputValue }) => {
               letter={letter}
               splittedWord={splittedWord}
               splittedInput={splittedInput}
-              checkMatch={checkMatch}
+              // color={checkMatch(index, splittedWord, splittedInput)}
+              color={color}
+              lettersArr={lettersArr}
             />
           );
         })}

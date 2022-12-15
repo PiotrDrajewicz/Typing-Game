@@ -43,6 +43,14 @@ body {
   /* flex-grow: 0; */
 }
 
-.panel-letter {
+.single-letter {
   color: white;
+}
+
+.letter-red {
+  color: red;
+}
+
+.letter-green {
+  color: green;
 }
