@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useMemo, memo } from "react";
 import nextId from "react-id-generator";
 import React from "react";
+import SingleLetter from "./SingleLetter";
 
 const SinglePanel = ({ word, inputValue }) => {
   // const [splittedWord, setSplittedWord] = useState([]);
@@ -43,7 +44,13 @@ const SinglePanel = ({ word, inputValue }) => {
     }
   };
 
-  const checkMatch = (index) => {};
+  const kupa = (index) => {
+    if (splittedWord[index] === splittedInput[index]) {
+      console.log(true);
+    } else {
+      console.log(false);
+    }
+  };
 
   //works with useStates (but there is one letter delay in logging)
   //works only when the pannel's key prop is its index
@@ -71,6 +78,8 @@ const SinglePanel = ({ word, inputValue }) => {
               // index={index}
               className="panel-letter"
               id={`${letter}-${word}`}
+              // data-checkMatch={checkMatch}
+              data-gowno={() => kupa()}
             >
               {letter}
             </h3>
