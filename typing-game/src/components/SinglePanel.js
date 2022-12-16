@@ -11,6 +11,7 @@ const SinglePanel = ({ word, inputValue }) => {
   // const splittedInput = useRef(inputValue.split(""));
   const { current: splittedWord } = useRef(word.split(""));
   const { current: splittedInput } = useRef(inputValue.split(""));
+  const lettersArr = [];
 
   //NOTATKI
   //jak da sie zmieniającą się w set zmienną do dependency array to nie ma infinite loop
@@ -77,8 +78,13 @@ const SinglePanel = ({ word, inputValue }) => {
         {splittedWord.map((letter, index) => {
           // const letterId = nextId();
           const color = checkMatch(index, splittedWord, splittedInput);
-          const lettersArr = [];
-          lettersArr.push(letter);
+          lettersArr.push({ letter, index, color });
+          if (lettersArr.length === splittedWord.length) {
+            const isWholeCorrect = lettersArr.every((letter) => {
+              letter.color = "letter-green";
+            });
+            console.log("is whole correct: ", isWholeCorrect);
+          }
           return (
             <SingleLetter
               key={index}
