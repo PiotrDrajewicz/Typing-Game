@@ -81,7 +81,7 @@ const SinglePanel = ({ word, inputValue }) => {
           lettersArr.push({ letter, index, color });
           if (lettersArr.length === splittedWord.length) {
             const isWholeCorrect = lettersArr.every((letter) => {
-              letter.color = "letter-green";
+              return letter.color === "letter-green";
             });
             console.log("is whole correct: ", isWholeCorrect);
           }

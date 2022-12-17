@@ -4,7 +4,7 @@ import nextId from "react-id-generator";
 
 // const defaultText =
 //   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
-const defaultText = "This.";
+const defaultText = "This thasem.";
 
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
