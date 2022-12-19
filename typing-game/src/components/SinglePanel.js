@@ -4,7 +4,7 @@ import React from "react";
 import SingleLetter from "./SingleLetter";
 
 const SinglePanel = ({ word, inputValue }) => {
-  const [disappearClass, setDisappearClass] = useState("");
+  // const [disappearClass, setDisappearClass] = useState("");
   const [isWholeCorrect, setIsWholeCorrect] = useState(false);
   const [splittedWord, setSplittedWord] = useState([]);
   const [splittedInput, setSplittedInput] = useState([]);
@@ -14,6 +14,7 @@ const SinglePanel = ({ word, inputValue }) => {
   // const { current: splittedWord } = useRef(word.split(""));
   // const { current: splittedInput } = useRef(inputValue.split(""));
   const lettersArr = [];
+  const panel = useRef(null);
 
   //NOTATKI
   //jak da sie zmieniającą się w set zmienną do dependency array to nie ma infinite loop
@@ -30,21 +31,21 @@ const SinglePanel = ({ word, inputValue }) => {
     setSplittedInput(letters);
   };
 
-  const checkLetterMatch = () => {
-    // console.log(splittedWord);
-    // console.log(splittedInput);
-    if (splittedWord.length > 0 && splittedInput.length > 0) {
-      // console.log("przeszło");
-      splittedInput.forEach((letter, index) => {
-        if (letter === splittedWord[index]) {
-          // console.log("takie same");
-          // splittedWord[index].style.color = "green";
-        } else {
-          // console.log("inne");
-        }
-      });
-    }
-  };
+  // const checkLetterMatch = () => {
+  //   // console.log(splittedWord);
+  //   // console.log(splittedInput);
+  //   if (splittedWord.length > 0 && splittedInput.length > 0) {
+  //     // console.log("przeszło");
+  //     splittedInput.forEach((letter, index) => {
+  //       if (letter === splittedWord[index]) {
+  //         // console.log("takie same");
+  //         // splittedWord[index].style.color = "green";
+  //       } else {
+  //         // console.log("inne");
+  //       }
+  //     });
+  //   }
+  // };
 
   // const checkWholeWord = (splittedWord, splittedInput) => {
   //   isWholeCorrect = splitted;
@@ -60,23 +61,22 @@ const SinglePanel = ({ word, inputValue }) => {
     }
   };
 
-  const checkIfGreen = () => {
-    const isAllGreen = lettersArr.every((letter) => {
-      return letter.color === "letter-green";
-    });
-    setIsWholeCorrect(isAllGreen);
-    if (isWholeCorrect) {
-      setDisappearClass("panel-disappear");
-    }
-  };
+  // const checkIfGreen = () => {
+  //   //tu było
+  //   console.log("isAllGreen", isAllGreen);
+  //   setIsWholeCorrect(isAllGreen);
+  //   if (isWholeCorrect) {
+  //     setDisappearClass("panel-disappear");
+  //   }
+  // };
 
   //works with useStates (but there is one letter delay in logging)
   //works only when the pannel's key prop is its index
   useEffect(() => {
     splitWordIntoLetters();
     splitInputIntoLetters();
-    checkLetterMatch();
-    checkIfGreen();
+    // checkLetterMatch();
+    // checkIfGreen();
   }, [inputValue]);
 
   //works with useRefs (no delay)
@@ -87,16 +87,24 @@ const SinglePanel = ({ word, inputValue }) => {
 
   return (
     <>
-      <article className={`single-panel ${disappearClass}`}>
+      <article ref={panel} className={`single-panel`}>
         {splittedWord.map((letter, index) => {
           // const letterId = nextId();
           const color = checkMatch(index, splittedWord, splittedInput);
           lettersArr.push({ letter, index, color });
+          // console.log(lettersArr.length);
+          // console.log(splittedWord);
           if (lettersArr.length === splittedWord.length) {
-            console.log("is whole correct: ", isWholeCorrect);
-            // if (isWholeCorrect) {
-            //   setDisappearClass("panel-disappear");
-            // }
+            // console.log("gówno");
+            const isAllGreen = lettersArr.every((letter) => {
+              return letter.color === "letter-green";
+            });
+            console.log("sss", isAllGreen);
+            if (isAllGreen) {
+              // setDisappearClass("panel-disappear");
+              // console.log(panel.current);
+              panel.current.classList.add("panel-disappear");
+            }
           }
           return (
             <SingleLetter
