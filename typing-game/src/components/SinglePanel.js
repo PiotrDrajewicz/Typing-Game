@@ -3,33 +3,32 @@ import nextId from "react-id-generator";
 import React from "react";
 import SingleLetter from "./SingleLetter";
 
-const SinglePanel = ({ word, inputValue, id }) => {
-  // const [disappearClass, setDisappearClass] = useState("");
-  // const [isWholeCorrect, setIsWholeCorrect] = useState(false);
-  // const [splittedWord, setSplittedWord] = useState([]);
-  // const [splittedInput, setSplittedInput] = useState([]);
+const SinglePanel = ({ word, inputValue }) => {
+  const [disappearClass, setDisappearClass] = useState("");
+  const [isWholeCorrect, setIsWholeCorrect] = useState(false);
+  const [splittedWord, setSplittedWord] = useState([]);
+  const [splittedInput, setSplittedInput] = useState([]);
   //TO JEST DOBRZE
   // const splittedWord = useRef(word.split(""));
   // const splittedInput = useRef(inputValue.split(""));
-  const { current: splittedWord } = useRef(word.split(""));
-  const { current: splittedInput } = useRef(inputValue.split(""));
+  // const { current: splittedWord } = useRef(word.split(""));
+  // const { current: splittedInput } = useRef(inputValue.split(""));
   const lettersArr = [];
-  // const panel = useRef(null);
 
   //NOTATKI
   //jak da sie zmieniającą się w set zmienną do dependency array to nie ma infinite loop
   //(chyba) tworząc key prop nie za pomocą index, przekazujemy do komponentu nową wartość propa i komponent re-renderuje się (rozwiązanie nie useRef())
   //mogę dać array do dependency list po stworzeniu go jako useRef()
 
-  // const splitWordIntoLetters = () => {
-  //   const letters = word.split("");
-  //   setSplittedWord(letters);
-  // };
+  const splitWordIntoLetters = () => {
+    const letters = word.split("");
+    setSplittedWord(letters);
+  };
 
-  // const splitInputIntoLetters = () => {
-  //   const letters = inputValue.split("");
-  //   setSplittedInput(letters);
-  // };
+  const splitInputIntoLetters = () => {
+    const letters = inputValue.split("");
+    setSplittedInput(letters);
+  };
 
   const checkLetterMatch = () => {
     // console.log(splittedWord);
@@ -61,36 +60,43 @@ const SinglePanel = ({ word, inputValue, id }) => {
     }
   };
 
+  const checkIfGreen = () => {
+    const isAllGreen = lettersArr.every((letter) => {
+      return letter.color === "letter-green";
+    });
+    setIsWholeCorrect(isAllGreen);
+    if (isWholeCorrect) {
+      setDisappearClass("panel-disappear");
+    }
+  };
+
   //works with useStates (but there is one letter delay in logging)
   //works only when the pannel's key prop is its index
-  // useEffect(() => {
-  //   splitWordIntoLetters();
-  //   splitInputIntoLetters();
-  //   checkLetterMatch();
-  // }, [inputValue]);
+  useEffect(() => {
+    splitWordIntoLetters();
+    splitInputIntoLetters();
+    checkLetterMatch();
+    checkIfGreen();
+  }, [inputValue]);
 
   //works with useRefs (no delay)
   //doesn't work when the pannel's key prop in its index (works with dynamic id generators)
-  useEffect(() => {
-    checkLetterMatch();
-  }, []);
+  // useEffect(() => {
+  //   checkLetterMatch();
+  // }, []);
 
   return (
     <>
-      <article ref={panel} className={`single-panel`}>
+      <article className={`single-panel ${disappearClass}`}>
         {splittedWord.map((letter, index) => {
           // const letterId = nextId();
           const color = checkMatch(index, splittedWord, splittedInput);
           lettersArr.push({ letter, index, color });
           if (lettersArr.length === splittedWord.length) {
-            const isWholeCorrect = lettersArr.every((letter) => {
-              return letter.color === "letter-green";
-            });
             console.log("is whole correct: ", isWholeCorrect);
-            if (isWholeCorrect) {
-              console.log(panel);
-              hidePanel(panel.current);
-            }
+            // if (isWholeCorrect) {
+            //   setDisappearClass("panel-disappear");
+            // }
           }
           return (
             <SingleLetter
