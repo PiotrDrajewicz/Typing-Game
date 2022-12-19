@@ -41,6 +41,11 @@ body {
   width: fit-content;
   /* flex-shrink: 1; */
   /* flex-grow: 0; */
+  transition: background-color 2s ease-in-out;
+}
+
+.single-panel.panel-disappear {
+  background-color: pink;
 }
 
 .single-letter {

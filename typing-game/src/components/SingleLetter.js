@@ -3,7 +3,7 @@ const SingleLetter = ({
   letter,
   splittedWord,
   splittedInput,
-  color,
+  colorClass,
   lettersArr,
 }) => {
   // const checkMatch = (index, splittedWord, splittedInput) => {
@@ -18,10 +18,11 @@ const SingleLetter = ({
 
   // const color = checkMatch(index, splittedWord, splittedInput);
   // console.log("nowy kolor: ", color);
-  console.log("nowy kolor: ", color);
-  console.log("lettersArr: ", lettersArr);
+  // console.log("nowy kolor: ", color);
+  // console.log("lettersArr: ", lettersArr);
+  // console.log(this.parentElement);
 
-  return <h3 className={`single-letter ${color}`}>{letter}</h3>;
+  return <h3 className={`single-letter ${colorClass}`}>{letter}</h3>;
 };
 
 export default SingleLetter;

@@ -3,7 +3,9 @@ import nextId from "react-id-generator";
 import React from "react";
 import SingleLetter from "./SingleLetter";
 
-const SinglePanel = ({ word, inputValue }) => {
+const SinglePanel = ({ word, inputValue, id }) => {
+  // const [disappearClass, setDisappearClass] = useState("");
+  // const [isWholeCorrect, setIsWholeCorrect] = useState(false);
   // const [splittedWord, setSplittedWord] = useState([]);
   // const [splittedInput, setSplittedInput] = useState([]);
   //TO JEST DOBRZE
@@ -12,6 +14,7 @@ const SinglePanel = ({ word, inputValue }) => {
   const { current: splittedWord } = useRef(word.split(""));
   const { current: splittedInput } = useRef(inputValue.split(""));
   const lettersArr = [];
+  // const panel = useRef(null);
 
   //NOTATKI
   //jak da sie zmieniającą się w set zmienną do dependency array to nie ma infinite loop
@@ -29,16 +32,16 @@ const SinglePanel = ({ word, inputValue }) => {
   // };
 
   const checkLetterMatch = () => {
-    console.log(splittedWord);
-    console.log(splittedInput);
+    // console.log(splittedWord);
+    // console.log(splittedInput);
     if (splittedWord.length > 0 && splittedInput.length > 0) {
-      console.log("przeszło");
+      // console.log("przeszło");
       splittedInput.forEach((letter, index) => {
         if (letter === splittedWord[index]) {
-          console.log("takie same");
+          // console.log("takie same");
           // splittedWord[index].style.color = "green";
         } else {
-          console.log("inne");
+          // console.log("inne");
         }
       });
     }
@@ -74,7 +77,7 @@ const SinglePanel = ({ word, inputValue }) => {
 
   return (
     <>
-      <article className="single-panel">
+      <article ref={panel} className={`single-panel`}>
         {splittedWord.map((letter, index) => {
           // const letterId = nextId();
           const color = checkMatch(index, splittedWord, splittedInput);
@@ -84,6 +87,10 @@ const SinglePanel = ({ word, inputValue }) => {
               return letter.color === "letter-green";
             });
             console.log("is whole correct: ", isWholeCorrect);
+            if (isWholeCorrect) {
+              console.log(panel);
+              hidePanel(panel.current);
+            }
           }
           return (
             <SingleLetter
@@ -93,7 +100,7 @@ const SinglePanel = ({ word, inputValue }) => {
               splittedWord={splittedWord}
               splittedInput={splittedInput}
               // color={checkMatch(index, splittedWord, splittedInput)}
-              color={color}
+              colorClass={color}
               lettersArr={lettersArr}
             />
           );
