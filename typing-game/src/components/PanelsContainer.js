@@ -1,10 +1,17 @@
-import { useEffect, useState, useRef, useCallback, memo } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  memo,
+  createContext,
+} from "react";
 import SinglePanel from "./SinglePanel";
 import nextId from "react-id-generator";
 
 // const defaultText =
 //   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
-const defaultText = "This thasem.";
+const defaultText = "This thasem aurora pesem.";
 
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
@@ -41,32 +48,34 @@ const PanelsContainer = () => {
 
   return (
     <>
-      <h2>count: {renderr.current++}</h2>
-      <section className="input-section">
-        <input
-          type="text"
-          id="input-window"
-          value={inputValue}
-          ref={inputWindow}
-          onChange={updateInput}
-        />
-      </section>
-      <section className="panels-container">
-        {wordsOnly.map((word, index) => {
-          // const generatedId = nextId();
-          return (
-            <SinglePanel
-              // key={generatedId}
-              // data-id={`${generatedId}-${word}`}
-              // id={`${generatedId}-${word}`}
-              // key={new Date().getTime().toString()}
-              key={index}
-              word={word}
-              inputValue={inputValue}
-            />
-          );
-        })}
-      </section>
+      <div className="input-panels-container">
+        <section className="panels-container">
+          {wordsOnly.map((word, index) => {
+            // const generatedId = nextId();
+            return (
+              <SinglePanel
+                // key={generatedId}
+                // data-id={`${generatedId}-${word}`}
+                // id={`${generatedId}-${word}`}
+                // key={new Date().getTime().toString()}
+                key={index}
+                word={word}
+                inputValue={inputValue}
+                setInputValue={setInputValue}
+              />
+            );
+          })}
+        </section>
+        <section className="input-section">
+          <input
+            type="text"
+            id="input-window"
+            value={inputValue}
+            ref={inputWindow}
+            onChange={updateInput}
+          />
+        </section>
+      </div>
     </>
   );
 };

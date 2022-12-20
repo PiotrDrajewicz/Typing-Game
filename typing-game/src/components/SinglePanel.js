@@ -1,11 +1,25 @@
-import { useEffect, useState, useRef, useMemo, memo } from "react";
+import {
+  useEffect,
+  useState,
+  useRef,
+  useMemo,
+  memo,
+  useContext,
+  useCallback,
+} from "react";
 import nextId from "react-id-generator";
 import React from "react";
 import SingleLetter from "./SingleLetter";
+import PanelsContext from "./PanelsContainer";
 
-const SinglePanel = ({ word, inputValue }) => {
+const screenWidth = window.screen.width;
+const screenHeight = window.screen.height;
+
+const SinglePanel = ({ word, inputValue, setInputValue }) => {
   const [splittedWord, setSplittedWord] = useState([]);
   const [splittedInput, setSplittedInput] = useState([]);
+  const [xPosition, setXPosition] = useState(0);
+  const [yPosition, setYPosition] = useState(0);
 
   const lettersArr = [];
   const panel = useRef(null);
@@ -28,6 +42,17 @@ const SinglePanel = ({ word, inputValue }) => {
     }
   };
 
+  const calculatePosition = () => {
+    const randXPosition = Math.random() * (screenWidth - 200);
+    const randYPosition = Math.random() * (screenHeight - 400);
+    setXPosition(randXPosition);
+    setYPosition(randYPosition);
+  };
+
+  useEffect(() => {
+    calculatePosition();
+  }, []);
+
   //works with useStates (but there is one letter delay in logging)
   //works only when the pannel's key prop is its index
   useEffect(() => {
@@ -37,7 +62,16 @@ const SinglePanel = ({ word, inputValue }) => {
 
   return (
     <>
-      <article ref={panel} className={`single-panel`}>
+      <article
+        style={{
+          transform: `translate(${xPosition}px, ${yPosition}px)`,
+        }}
+        // style={{
+        //   transform: `translateX(${Math.random() * (screenWidth - 200)}px)`,
+        // }}
+        ref={panel}
+        className={`single-panel`}
+      >
         {splittedWord.map((letter, index) => {
           const color = checkMatch(index, splittedWord, splittedInput);
           lettersArr.push({ letter, index, color });
@@ -48,6 +82,8 @@ const SinglePanel = ({ word, inputValue }) => {
             console.log("is all green: ", isAllGreen);
             if (isAllGreen) {
               panel.current.classList.add("panel-disappear");
+              setInputValue("");
+              // clear();
             }
           }
           return (
