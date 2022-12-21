@@ -12,12 +12,14 @@ import nextId from "react-id-generator";
 // const defaultText =
 //   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
 const defaultText = "This thasem aurora pesem.";
+const popNumbers = [];
 
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
   const [text, setText] = useState(defaultText);
   const [wordsOnly, setWordsOnly] = useState([]);
   const [inputValue, setInputValue] = useState("");
+  const [wordsArrLength, setWordsArrLength] = useState(0);
   const inputWindow = useRef(null);
   const renderr = useRef(0);
 
@@ -32,6 +34,7 @@ const PanelsContainer = () => {
       })
       .map((word) => word.toLowerCase());
 
+    setWordsArrLength(wordsOnlyArr.length);
     setWordsOnly(wordsOnlyArr);
   };
 
@@ -40,6 +43,19 @@ const PanelsContainer = () => {
     setInputValue(inputWindow.current.value);
     // console.log(inputValue);
   };
+
+  //this destroys connection smh
+  // const drawPopNumber = () => {
+  //   for (let i = 0; wordsArrLength; i++) {
+  //     popNumbers.push(i);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   drawPopNumber();
+  // }, [wordsArrLength]);
+  // console.log("len", wordsArrLength);
+  // console.log("popNumbers", popNumbers);
 
   useEffect(() => {
     splitText(text);
@@ -52,6 +68,7 @@ const PanelsContainer = () => {
         <section className="panels-container">
           {wordsOnly.map((word, index) => {
             // const generatedId = nextId();
+
             return (
               <SinglePanel
                 // key={generatedId}
@@ -59,9 +76,12 @@ const PanelsContainer = () => {
                 // id={`${generatedId}-${word}`}
                 // key={new Date().getTime().toString()}
                 key={index}
+                id={index}
                 word={word}
                 inputValue={inputValue}
                 setInputValue={setInputValue}
+                //I want it to be like that
+                // popNumber={drawPopNumber()}
               />
             );
           })}

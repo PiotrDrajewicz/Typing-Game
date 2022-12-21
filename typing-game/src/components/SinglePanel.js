@@ -15,11 +15,13 @@ import PanelsContext from "./PanelsContainer";
 const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
 
-const SinglePanel = ({ word, inputValue, setInputValue }) => {
+const SinglePanel = ({ word, inputValue, setInputValue, id }) => {
   const [splittedWord, setSplittedWord] = useState([]);
   const [splittedInput, setSplittedInput] = useState([]);
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
+  const [visibility, setVisibility] = useState(0);
+  const [popInterval, setPopInterval] = useState(1000);
 
   const lettersArr = [];
   const panel = useRef(null);
@@ -49,9 +51,11 @@ const SinglePanel = ({ word, inputValue, setInputValue }) => {
     setYPosition(randYPosition);
   };
 
-  useEffect(() => {
-    calculatePosition();
-  }, []);
+  const makeVisible = () => {
+    setTimeout(() => {
+      setVisibility(1);
+    }, id * popInterval);
+  };
 
   //works with useStates (but there is one letter delay in logging)
   //works only when the pannel's key prop is its index
@@ -60,11 +64,17 @@ const SinglePanel = ({ word, inputValue, setInputValue }) => {
     splitInputIntoLetters();
   }, [inputValue]);
 
+  useEffect(() => {
+    calculatePosition();
+    makeVisible();
+  }, []);
+
   return (
     <>
       <article
         style={{
           transform: `translate(${xPosition}px, ${yPosition}px)`,
+          opacity: visibility,
         }}
         // style={{
         //   transform: `translateX(${Math.random() * (screenWidth - 200)}px)`,
