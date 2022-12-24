@@ -15,7 +15,7 @@ import PanelsContext from "./PanelsContainer";
 const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
 
-const SinglePanel = ({ word, inputValue, setInputValue, id }) => {
+const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
   const [splittedWord, setSplittedWord] = useState([]);
   const [splittedInput, setSplittedInput] = useState([]);
   const [xPosition, setXPosition] = useState(0);
@@ -51,10 +51,11 @@ const SinglePanel = ({ word, inputValue, setInputValue, id }) => {
     setYPosition(randYPosition);
   };
 
+  //było id * popInterval
   const makeVisible = () => {
     setTimeout(() => {
       setVisibility(1);
-    }, id * popInterval);
+    }, popNumber * popInterval);
   };
 
   //works with useStates (but there is one letter delay in logging)
@@ -69,9 +70,12 @@ const SinglePanel = ({ word, inputValue, setInputValue, id }) => {
     makeVisible();
   }, []);
 
+  console.log("poppp", popNumber);
+
   return (
     <>
       <article
+        data-num={popNumber}
         style={{
           transform: `translate(${xPosition}px, ${yPosition}px)`,
           opacity: visibility,

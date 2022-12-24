@@ -12,7 +12,7 @@ import nextId from "react-id-generator";
 // const defaultText =
 //   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
 const defaultText = "This thasem aurora pesem.";
-const popNumbers = [];
+// const popNumbers = [];
 
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
@@ -20,6 +20,8 @@ const PanelsContainer = () => {
   const [wordsOnly, setWordsOnly] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [wordsArrLength, setWordsArrLength] = useState(0);
+  const [popNumbers, setPopNumbers] = useState([]);
+  const [popNum, setPopNum] = useState(null);
   const inputWindow = useRef(null);
   const renderr = useRef(0);
 
@@ -44,18 +46,37 @@ const PanelsContainer = () => {
     // console.log(inputValue);
   };
 
-  //this destroys connection smh
-  // const drawPopNumber = () => {
-  //   for (let i = 0; wordsArrLength; i++) {
-  //     popNumbers.push(i);
-  //   }
-  // };
+  //losowanie, usuwanie i przekazywanie działa, nie ma infinite loop, ale wszystkie panele dostają ten sam numer i dlatego wszystkie pokazują się na ekranie w tym samym momencie (ostatecznie zostają z ostatnim dostępnym numerem) - naprawić to
+  const drawPopNumber = () => {
+    //   setPopNumbers([...Array(wordsArrLength).keys()]);
+    if (popNumbers.length > 0) {
+      const numberToPop =
+        popNumbers[Math.floor(Math.random() * popNumbers.length)];
+      const newPopNumbers = popNumbers.filter(
+        (number) => number !== numberToPop
+      );
+      console.log("do single w fun", numberToPop);
+      setPopNumbers(newPopNumbers);
+      setPopNum(numberToPop);
+    }
+  };
 
-  // useEffect(() => {
-  //   drawPopNumber();
-  // }, [wordsArrLength]);
-  // console.log("len", wordsArrLength);
-  // console.log("popNumbers", popNumbers);
+  useEffect(() => {
+    drawPopNumber();
+  }, [popNumbers.length]);
+
+  useEffect(() => {
+    // drawPopNumber();
+    setPopNumbers([...Array(wordsArrLength).keys()]);
+  }, [wordsArrLength]);
+  console.log("len", wordsArrLength);
+  console.log("popNumbers", popNumbers);
+  console.log("do single poza fun", popNum);
+
+  //BEZ USESTATE
+  // const drawNoUse = () => {
+  //   const arr1 = [...Array(wordsArrLength).keys()];
+  // };
 
   useEffect(() => {
     splitText(text);
@@ -82,6 +103,7 @@ const PanelsContainer = () => {
                 setInputValue={setInputValue}
                 //I want it to be like that
                 // popNumber={drawPopNumber()}
+                popNumber={popNum}
               />
             );
           })}
