@@ -13,6 +13,8 @@ import nextId from "react-id-generator";
 //   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
 const defaultText = "This thasem aurora pesem.";
 // const popNumbers = [];
+let newPopNumbers = [];
+let iteration = 0;
 
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
@@ -50,28 +52,39 @@ const PanelsContainer = () => {
   const drawPopNumber = () => {
     //   setPopNumbers([...Array(wordsArrLength).keys()]);
     if (popNumbers.length > 0) {
-      const numberToPop =
-        popNumbers[Math.floor(Math.random() * popNumbers.length)];
-      const newPopNumbers = popNumbers.filter(
-        (number) => number !== numberToPop
-      );
-      console.log("do single w fun", numberToPop);
-      setPopNumbers(newPopNumbers);
-      setPopNum(numberToPop);
+      if (iteration === 0) {
+        const numberToPop =
+          popNumbers[Math.floor(Math.random() * popNumbers.length)];
+        newPopNumbers = popNumbers.filter((number) => number !== numberToPop);
+        iteration += 1;
+        return numberToPop;
+      } else {
+        const numberToPop =
+          newPopNumbers[Math.floor(Math.random() * newPopNumbers.length)];
+        newPopNumbers = newPopNumbers.filter(
+          (number) => number !== numberToPop
+        );
+        iteration += 1;
+        return numberToPop;
+      }
+      // console.log("do single w fun", numberToPop);
+      // setPopNumbers(newPopNumbers);
+      // setPopNum(numberToPop);
+      // return numberToPop;
     }
   };
 
-  useEffect(() => {
-    drawPopNumber();
-  }, [popNumbers.length]);
+  // useEffect(() => {
+  //   drawPopNumber();
+  // }, [popNumbers.length]);
 
   useEffect(() => {
     // drawPopNumber();
     setPopNumbers([...Array(wordsArrLength).keys()]);
   }, [wordsArrLength]);
-  console.log("len", wordsArrLength);
-  console.log("popNumbers", popNumbers);
-  console.log("do single poza fun", popNum);
+  // console.log("len", wordsArrLength);
+  // console.log("popNumbers", popNumbers);
+  // console.log("do single poza fun", popNum);
 
   //BEZ USESTATE
   // const drawNoUse = () => {
@@ -102,8 +115,8 @@ const PanelsContainer = () => {
                 inputValue={inputValue}
                 setInputValue={setInputValue}
                 //I want it to be like that
-                // popNumber={drawPopNumber()}
-                popNumber={popNum}
+                popNumber={drawPopNumber()}
+                // popNumber={popNum}
               />
             );
           })}

@@ -14,6 +14,7 @@ import PanelsContext from "./PanelsContainer";
 
 const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
+let vis = 0;
 
 const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
   const [splittedWord, setSplittedWord] = useState([]);
@@ -22,6 +23,7 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
   const [yPosition, setYPosition] = useState(0);
   const [visibility, setVisibility] = useState(0);
   const [popInterval, setPopInterval] = useState(1000);
+  const [lolo, setLolo] = useState(popNumber);
 
   const lettersArr = [];
   const panel = useRef(null);
@@ -55,6 +57,8 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
   const makeVisible = () => {
     setTimeout(() => {
       setVisibility(1);
+      console.log("makeVisible");
+      // vis = 1;
     }, popNumber * popInterval);
   };
 
@@ -67,10 +71,17 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
 
   useEffect(() => {
     calculatePosition();
+    // makeVisible();
     makeVisible();
   }, []);
 
-  console.log("poppp", popNumber);
+  // useEffect(() => {
+  //   setLolo(popNumber);
+  //   makeVisible();
+  //   console.log(lolo);
+  // }, [lolo]);
+
+  console.log(`panels ${id} pop number: `, popNumber);
 
   return (
     <>
@@ -93,7 +104,7 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
             const isAllGreen = lettersArr.every((letter) => {
               return letter.color === "letter-green";
             });
-            console.log("is all green: ", isAllGreen);
+            // console.log("is all green: ", isAllGreen);
             if (isAllGreen) {
               panel.current.classList.add("panel-disappear");
               setInputValue("");
