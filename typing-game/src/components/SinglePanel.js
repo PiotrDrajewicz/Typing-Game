@@ -22,8 +22,7 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
   const [xPosition, setXPosition] = useState(0);
   const [yPosition, setYPosition] = useState(0);
   const [visibility, setVisibility] = useState(0);
-  const [popInterval, setPopInterval] = useState(1000);
-  const [lolo, setLolo] = useState(popNumber);
+  const [popInterval, setPopInterval] = useState(3000);
 
   const lettersArr = [];
   const panel = useRef(null);
@@ -53,13 +52,9 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
     setYPosition(randYPosition);
   };
 
-  //było id * popInterval
   const makeVisible = () => {
-    setTimeout(() => {
-      setVisibility(1);
-      console.log("makeVisible");
-      // vis = 1;
-    }, popNumber * popInterval);
+    setVisibility(1);
+    console.log("makeVisible");
   };
 
   //works with useStates (but there is one letter delay in logging)
@@ -72,16 +67,21 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
   useEffect(() => {
     calculatePosition();
     // makeVisible();
-    makeVisible();
   }, []);
 
-  // useEffect(() => {
-  //   setLolo(popNumber);
-  //   makeVisible();
-  //   console.log(lolo);
-  // }, [lolo]);
+  useEffect(() => {
+    if (popNumber || popNumber === 0) {
+      const timeout = setTimeout(() => {
+        makeVisible();
+      }, popNumber * popInterval);
 
-  console.log(`panels ${id} pop number: `, popNumber);
+      return () => clearTimeout(timeout);
+    }
+  }, [popNumber]);
+
+  console.log(`panel ${id} pop number: `, popNumber);
+  // console.log(`panels ${id} numState: `, numState);
+  // console.log(`panels ${id} visibility: `, visibility);
 
   return (
     <>
@@ -91,9 +91,6 @@ const SinglePanel = ({ word, inputValue, setInputValue, id, popNumber }) => {
           transform: `translate(${xPosition}px, ${yPosition}px)`,
           opacity: visibility,
         }}
-        // style={{
-        //   transform: `translateX(${Math.random() * (screenWidth - 200)}px)`,
-        // }}
         ref={panel}
         className={`single-panel`}
       >

@@ -15,6 +15,7 @@ const defaultText = "This thasem aurora pesem.";
 // const popNumbers = [];
 let newPopNumbers = [];
 let iteration = 0;
+let numFlag = null;
 
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
@@ -23,7 +24,7 @@ const PanelsContainer = () => {
   const [inputValue, setInputValue] = useState("");
   const [wordsArrLength, setWordsArrLength] = useState(0);
   const [popNumbers, setPopNumbers] = useState([]);
-  const [popNum, setPopNum] = useState(null);
+  // const [popNumState, setPopNumState] = useState(null);
   const inputWindow = useRef(null);
   const renderr = useRef(0);
 
@@ -57,6 +58,8 @@ const PanelsContainer = () => {
           popNumbers[Math.floor(Math.random() * popNumbers.length)];
         newPopNumbers = popNumbers.filter((number) => number !== numberToPop);
         iteration += 1;
+        // setPopNumState(numberToPop);
+        numFlag = numberToPop;
         return numberToPop;
       } else {
         const numberToPop =
@@ -65,6 +68,8 @@ const PanelsContainer = () => {
           (number) => number !== numberToPop
         );
         iteration += 1;
+        // setPopNumState(numberToPop);
+        numFlag = numberToPop;
         return numberToPop;
       }
       // console.log("do single w fun", numberToPop);
@@ -102,21 +107,16 @@ const PanelsContainer = () => {
         <section className="panels-container">
           {wordsOnly.map((word, index) => {
             // const generatedId = nextId();
-
             return (
               <SinglePanel
                 // key={generatedId}
-                // data-id={`${generatedId}-${word}`}
-                // id={`${generatedId}-${word}`}
                 // key={new Date().getTime().toString()}
                 key={index}
                 id={index}
                 word={word}
                 inputValue={inputValue}
                 setInputValue={setInputValue}
-                //I want it to be like that
                 popNumber={drawPopNumber()}
-                // popNumber={popNum}
               />
             );
           })}
