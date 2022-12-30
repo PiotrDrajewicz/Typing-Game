@@ -14,8 +14,6 @@ import PanelsContext from "./PanelsContainer";
 
 const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
-let vis = 0;
-let popNumPerm;
 
 const SinglePanel = memo(
   ({ word, inputValue, setInputValue, id, popNumber }) => {
@@ -25,7 +23,7 @@ const SinglePanel = memo(
     const [yPosition, setYPosition] = useState(0);
     const [visibility, setVisibility] = useState(0);
     const [popInterval, setPopInterval] = useState(3000);
-    const [popPerm, setPopPerm] = useState(null);
+    const [popPerm, setPopPerm] = useState(popNumber);
 
     const lettersArr = [];
     const panel = useRef(null);
@@ -60,6 +58,13 @@ const SinglePanel = memo(
       console.log("makeVisible");
     };
 
+    const assignPermValues = () => {
+      if (popNumber || popNumber === 0) {
+        console.log("assignPerm");
+        setPopPerm(popNumber);
+      }
+    };
+
     //works with useStates (but there is one letter delay in logging)
     //works only when the pannel's key prop is its index
     useEffect(() => {
@@ -69,26 +74,13 @@ const SinglePanel = memo(
 
     useEffect(() => {
       calculatePosition();
-      // makeVisible();
     }, []);
 
     //THIS WORKED
-    useEffect(() => {
-      if (popPerm === null && popNumber === undefined) {
-        setPopPerm(popNumber);
-      }
-      if (popNumber || popNumber === 0) {
-        const timeout = setTimeout(() => {
-          makeVisible();
-        }, popNumber * popInterval);
-
-        return () => clearTimeout(timeout);
-      }
-    }, [popNumber]);
-
+    //but popNumber is changing to undefined and appearance stops
     // useEffect(() => {
+    //   assignPermValues();
     //   if (popNumber || popNumber === 0) {
-    //     popNumPerm = popNumber;
     //     const timeout = setTimeout(() => {
     //       makeVisible();
     //     }, popNumber * popInterval);
@@ -96,6 +88,19 @@ const SinglePanel = memo(
     //     return () => clearTimeout(timeout);
     //   }
     // }, [popNumber]);
+
+    //THIS WORKS
+    //appearing based on popPerm and after assigning it a number, it doesn't change. Need to add the start button to start appearance.
+    useEffect(() => {
+      assignPermValues();
+      if (popPerm || popPerm === 0) {
+        const timeout = setTimeout(() => {
+          makeVisible();
+        }, popPerm * popInterval);
+
+        return () => clearTimeout(timeout);
+      }
+    }, [popNumber]);
 
     console.log(`panel ${id} pop number: `, popNumber);
     console.log(`panels ${id} perm: `, popPerm);
@@ -142,12 +147,14 @@ const SinglePanel = memo(
       </>
     );
   },
-  (prev, next) => {
+  (prevProps, nextProps) => {
     // console.log("prev: ", prev);
     // console.log("next: ", next);
-    if (next.popNumber !== undefined) {
-      // setPopPerm(popNumber);
-    }
+    //true -> no re-render
+    //false -> re-render
+    // if (next.popNumber !== undefined) {
+    //   setPopPerm(popNumber);
+    // }
   }
 );
 export default SinglePanel;
