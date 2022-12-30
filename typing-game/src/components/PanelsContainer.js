@@ -24,6 +24,7 @@ const PanelsContainer = () => {
   const [inputValue, setInputValue] = useState("");
   const [wordsArrLength, setWordsArrLength] = useState(0);
   const [popNumbers, setPopNumbers] = useState([]);
+  const [perm, setPerm] = useState(null);
   // const [popNumState, setPopNumState] = useState(null);
   const inputWindow = useRef(null);
   const renderr = useRef(0);
@@ -60,6 +61,7 @@ const PanelsContainer = () => {
         iteration += 1;
         // setPopNumState(numberToPop);
         numFlag = numberToPop;
+        console.log("draw 1");
         return numberToPop;
       } else {
         const numberToPop =
@@ -70,6 +72,7 @@ const PanelsContainer = () => {
         iteration += 1;
         // setPopNumState(numberToPop);
         numFlag = numberToPop;
+        console.log("draw 2");
         return numberToPop;
       }
       // console.log("do single w fun", numberToPop);
