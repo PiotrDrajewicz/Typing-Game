@@ -34,6 +34,8 @@ body {
 
 #input-window {
   margin-top: 80vh;
+  width: 20%;
+  height: 2rem;
 }
 
 .panels-container {
