@@ -16,7 +16,7 @@ const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
 
 const SinglePanel = memo(
-  ({ word, inputValue, setInputValue, id, popNumber }) => {
+  ({ word, inputValue, setInputValue, id, popNumber, isGameRunning }) => {
     const [splittedWord, setSplittedWord] = useState([]);
     const [splittedInput, setSplittedInput] = useState([]);
     const [xPosition, setXPosition] = useState(0);
@@ -105,6 +105,8 @@ const SinglePanel = memo(
     console.log(`panel ${id} pop number: `, popNumber);
     console.log(`panels ${id} perm: `, popPerm);
     // console.log(`panels ${id} visibility: `, visibility);
+
+    console.log("is running: ", isGameRunning);
 
     return (
       <>

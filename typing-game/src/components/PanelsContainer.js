@@ -25,6 +25,7 @@ const PanelsContainer = () => {
   const [wordsArrLength, setWordsArrLength] = useState(0);
   const [popNumbers, setPopNumbers] = useState([]);
   const [perm, setPerm] = useState(null);
+  const [isGameRunning, setIsGameRunning] = useState(false);
   // const [popNumState, setPopNumState] = useState(null);
   const inputWindow = useRef(null);
   const renderr = useRef(0);
@@ -82,6 +83,19 @@ const PanelsContainer = () => {
     }
   };
 
+  const startGame = () => {
+    setInputValue(" ");
+    setTimeout(() => {
+      setInputValue("");
+    }, 1);
+    inputWindow.current.focus();
+    setIsGameRunning(true);
+  };
+
+  const pauseGame = () => {
+    setIsGameRunning(false);
+  };
+
   // useEffect(() => {
   //   drawPopNumber();
   // }, [popNumbers.length]);
@@ -101,7 +115,7 @@ const PanelsContainer = () => {
 
   useEffect(() => {
     splitText(text);
-    inputWindow.current.focus();
+    // inputWindow.current.focus();
   }, [text]);
 
   return (
@@ -120,18 +134,32 @@ const PanelsContainer = () => {
                 inputValue={inputValue}
                 setInputValue={setInputValue}
                 popNumber={drawPopNumber()}
+                isGameRunning={isGameRunning}
               />
             );
           })}
         </section>
         <section className="input-section">
-          <input
-            type="text"
-            id="input-window"
-            value={inputValue}
-            ref={inputWindow}
-            onChange={updateInput}
-          />
+          <div className="input-div">
+            <input
+              type="text"
+              id="input-window"
+              value={inputValue}
+              ref={inputWindow}
+              onChange={updateInput}
+            />
+          </div>
+          <div className="main-buttons">
+            <button type="button" className="main-button" onClick={startGame}>
+              Start
+            </button>
+            <button type="button" className="main-button" onClick={pauseGame}>
+              Pause
+            </button>
+            <button type="button" className="main-button">
+              Reset
+            </button>
+          </div>
         </section>
       </div>
     </>
