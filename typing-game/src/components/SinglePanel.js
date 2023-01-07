@@ -16,14 +16,28 @@ const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
 
 const SinglePanel = memo(
-  ({ word, inputValue, setInputValue, id, popNumber, isGameRunning }) => {
+  ({
+    word,
+    inputValue,
+    setInputValue,
+    id,
+    popNumber,
+    isGameRunning,
+    wordsOnly,
+    setWordsOnly,
+    paused,
+  }) => {
     const [splittedWord, setSplittedWord] = useState([]);
     const [splittedInput, setSplittedInput] = useState([]);
+    const [wordsOnlyCopy, setWordsOnlyCopy] = useState(wordsOnly);
     const [xPosition, setXPosition] = useState(0);
     const [yPosition, setYPosition] = useState(0);
     const [visibility, setVisibility] = useState(0);
     const [popInterval, setPopInterval] = useState(3000);
     const [popPerm, setPopPerm] = useState(popNumber);
+    const [isRunning, setIsRunning] = useState(isGameRunning);
+    const [isPaused, setIsPaused] = useState(paused);
+    const [displayed, setDisplayed] = useState(false);
 
     const lettersArr = [];
     const panel = useRef(null);
@@ -54,8 +68,18 @@ const SinglePanel = memo(
     };
 
     const makeVisible = () => {
-      setVisibility(1);
-      console.log("makeVisible");
+      if (isRunning && !displayed) {
+        setVisibility(1);
+        setDisplayed(true);
+        // wordsOnlyCopy.splice(id, 1);
+        // setWordsOnlyCopy(wordsOnlyCopy);
+        // wordsOnly.splice(id, 1);
+        // setWordsOnly(wordsOnly);
+
+        console.log(`makeVisible item ${popPerm} --------------`);
+        console.log("isRunning in makeVisible: ", isRunning);
+        console.log("displayed: ", displayed);
+      }
     };
 
     const assignPermValues = () => {
@@ -100,18 +124,30 @@ const SinglePanel = memo(
 
         return () => clearTimeout(timeout);
       }
-    }, [popNumber]);
+    }, [popNumber, isRunning]);
+    //było popNumber
+
+    useEffect(() => {
+      setIsRunning(isGameRunning);
+      setIsPaused(paused);
+      if (isPaused) {
+        //WŁĄCZ LOSOWANIE NOWYCH POPPERM
+        const permNumbers = [...Array(wordsOnly).keys()];
+        console.log("words only222: ", permNumbers);
+      }
+    }, [isGameRunning]);
 
     console.log(`panel ${id} pop number: `, popNumber);
     console.log(`panels ${id} perm: `, popPerm);
     // console.log(`panels ${id} visibility: `, visibility);
 
-    console.log("is running: ", isGameRunning);
+    console.log("is running: ", isRunning);
+    console.log("words only: ", wordsOnlyCopy);
 
     return (
       <>
         <article
-          // data-num={popNumber}
+          data-num={id}
           style={{
             transform: `translate(${xPosition}px, ${yPosition}px)`,
             opacity: visibility,

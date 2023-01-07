@@ -26,9 +26,11 @@ const PanelsContainer = () => {
   const [popNumbers, setPopNumbers] = useState([]);
   const [perm, setPerm] = useState(null);
   const [isGameRunning, setIsGameRunning] = useState(false);
+  const [paused, setPaused] = useState(false);
   // const [popNumState, setPopNumState] = useState(null);
   const inputWindow = useRef(null);
   const renderr = useRef(0);
+  const [wordsOnlyArrState, setWordsOnlyArrState] = useState([]);
 
   const splitText = (text) => {
     const regexWordsNumbers = /(\w+)/gi;
@@ -43,6 +45,7 @@ const PanelsContainer = () => {
 
     setWordsArrLength(wordsOnlyArr.length);
     setWordsOnly(wordsOnlyArr);
+    setWordsOnlyArrState(wordsOnlyArr);
   };
 
   const updateInput = () => {
@@ -85,6 +88,7 @@ const PanelsContainer = () => {
 
   const startGame = () => {
     setInputValue(" ");
+    setWordsOnly(wordsOnlyArrState);
     setTimeout(() => {
       setInputValue("");
     }, 1);
@@ -94,6 +98,7 @@ const PanelsContainer = () => {
 
   const pauseGame = () => {
     setIsGameRunning(false);
+    setPaused(true);
   };
 
   // useEffect(() => {
@@ -118,6 +123,8 @@ const PanelsContainer = () => {
     // inputWindow.current.focus();
   }, [text]);
 
+  // console.log("pop numsss: ", newPopNumbers);
+
   return (
     <>
       <div className="input-panels-container">
@@ -135,6 +142,9 @@ const PanelsContainer = () => {
                 setInputValue={setInputValue}
                 popNumber={drawPopNumber()}
                 isGameRunning={isGameRunning}
+                wordsOnly={wordsOnly}
+                setWordsOnly={setWordsOnly}
+                paused={paused}
               />
             );
           })}
