@@ -31,6 +31,7 @@ const PanelsContainer = () => {
   const inputWindow = useRef(null);
   const renderr = useRef(0);
   const [wordsOnlyArrState, setWordsOnlyArrState] = useState([]);
+  // const [removedWord, setRemovedWord] = useState("");
 
   const splitText = (text) => {
     const regexWordsNumbers = /(\w+)/gi;
@@ -99,6 +100,13 @@ const PanelsContainer = () => {
   const pauseGame = () => {
     setIsGameRunning(false);
     setPaused(true);
+
+    //STWÓRZ NOWE WORDSONLY
+  };
+
+  const resetGame = () => {
+    setWordsOnly([]);
+    iteration = 0;
   };
 
   // useEffect(() => {
@@ -123,6 +131,11 @@ const PanelsContainer = () => {
     // inputWindow.current.focus();
   }, [text]);
 
+  // useEffect(() => {
+  //   const neww = wordsOnly.filter((word) => word !== removedWord);
+  //   setWordsOnly(neww);
+  // }, [removedWord]);
+
   // console.log("pop numsss: ", newPopNumbers);
 
   return (
@@ -145,6 +158,7 @@ const PanelsContainer = () => {
                 wordsOnly={wordsOnly}
                 setWordsOnly={setWordsOnly}
                 paused={paused}
+                // setRemovedWord={setRemovedWord}
               />
             );
           })}
@@ -166,7 +180,7 @@ const PanelsContainer = () => {
             <button type="button" className="main-button" onClick={pauseGame}>
               Pause
             </button>
-            <button type="button" className="main-button">
+            <button type="button" className="main-button" onClick={resetGame}>
               Reset
             </button>
           </div>

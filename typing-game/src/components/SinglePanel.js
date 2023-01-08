@@ -26,14 +26,15 @@ const SinglePanel = memo(
     wordsOnly,
     setWordsOnly,
     paused,
+    // setRemovedWord,
   }) => {
     const [splittedWord, setSplittedWord] = useState([]);
     const [splittedInput, setSplittedInput] = useState([]);
-    const [wordsOnlyCopy, setWordsOnlyCopy] = useState(wordsOnly);
+    const [wordsOnlyCopy, setWordsOnlyCopy] = useState([]);
     const [xPosition, setXPosition] = useState(0);
     const [yPosition, setYPosition] = useState(0);
     const [visibility, setVisibility] = useState(0);
-    const [popInterval, setPopInterval] = useState(3000);
+    const [popInterval, setPopInterval] = useState(2000);
     const [popPerm, setPopPerm] = useState(popNumber);
     const [isRunning, setIsRunning] = useState(isGameRunning);
     const [isPaused, setIsPaused] = useState(paused);
@@ -71,8 +72,12 @@ const SinglePanel = memo(
       if (isRunning && !displayed) {
         setVisibility(1);
         setDisplayed(true);
-        // wordsOnlyCopy.splice(id, 1);
-        // setWordsOnlyCopy(wordsOnlyCopy);
+
+        // setRemovedWord(wordsOnly[id]);
+
+        // wordsOnlyCopy.splice(popPerm, 1);
+        // console.log("rrrrrr", wordsOnlyCopy[id]);
+        // setWordsOnlyCopy(cleanedWordsOnly);
         // wordsOnly.splice(id, 1);
         // setWordsOnly(wordsOnly);
 
@@ -98,6 +103,7 @@ const SinglePanel = memo(
 
     useEffect(() => {
       calculatePosition();
+      setWordsOnlyCopy([...wordsOnly]);
     }, []);
 
     //THIS WORKED
@@ -142,7 +148,7 @@ const SinglePanel = memo(
     // console.log(`panels ${id} visibility: `, visibility);
 
     console.log("is running: ", isRunning);
-    console.log("words only: ", wordsOnlyCopy);
+    console.log("words only copy: ", wordsOnlyCopy);
 
     return (
       <>
