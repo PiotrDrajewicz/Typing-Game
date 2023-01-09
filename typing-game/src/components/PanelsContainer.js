@@ -88,8 +88,10 @@ const PanelsContainer = () => {
   };
 
   const startGame = () => {
+    console.log("START START START");
     setInputValue(" ");
     setWordsOnly(wordsOnlyArrState);
+    iteration = 0;
     setTimeout(() => {
       setInputValue("");
     }, 1);
@@ -98,6 +100,7 @@ const PanelsContainer = () => {
   };
 
   const pauseGame = () => {
+    console.log("PAUSE PAUSE PAUSE");
     setIsGameRunning(false);
     setPaused(true);
 

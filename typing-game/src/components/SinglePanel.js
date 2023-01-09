@@ -136,11 +136,11 @@ const SinglePanel = memo(
     useEffect(() => {
       setIsRunning(isGameRunning);
       setIsPaused(paused);
-      if (isPaused) {
-        //WŁĄCZ LOSOWANIE NOWYCH POPPERM
-        const permNumbers = [...Array(wordsOnly).keys()];
-        console.log("words only222: ", permNumbers);
-      }
+      // if (isPaused) {
+      //   //WŁĄCZ LOSOWANIE NOWYCH POPPERM
+      //   const permNumbers = [...Array(wordsOnly).keys()];
+      //   console.log("words only222: ", permNumbers);
+      // }
     }, [isGameRunning]);
 
     console.log(`panel ${id} pop number: `, popNumber);
