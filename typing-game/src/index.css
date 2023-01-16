@@ -135,6 +135,8 @@ body {
   justify-self: center; */
   /* width: 60px; */
   padding: 0.15rem 1.35rem;
+  position: relative;
+  cursor: pointer;
 }
 
 .dropdown-container {
@@ -146,6 +148,16 @@ body {
   border: solid black 1px;
   border-radius: 5px;
   /* width: 100%; */
+  position: absolute;
+  margin-top: 2.1rem;
+  opacity: 0;
+  /* height: 0; */
+  transition: all 0.2s;
+}
+
+.dropdown-container.open {
+  opacity: 1;
+  /* height: 100%; */
 }
 
 .dropdown-val {
@@ -154,6 +166,8 @@ body {
 
 .dropdown-item {
   width: 100%;
+  padding: 0.15rem 0.75rem;
+  cursor: pointer;
 }
 
 .dropdown-item:hover {

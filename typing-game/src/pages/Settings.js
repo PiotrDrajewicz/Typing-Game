@@ -2,11 +2,16 @@ import { useRef, useState } from "react";
 
 const Settings = () => {
   const [isMusicOn, setIsMusicOn] = useState(true);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   // const musicSwitch = useRef(null);
 
   const switchMusicBtn = () => {
     setIsMusicOn((prevVal) => !prevVal);
   };
+
+  // const openDropdown = () => {
+
+  // }
 
   return (
     <>
@@ -37,8 +42,13 @@ const Settings = () => {
           </select> */}
           <p className="setting-label">Time interval [s]</p>
           <div className="dropdown-container-all">
-            <p className="dropdown-label dropdown-val">1</p>
-            <div className="dropdown-container">
+            <p
+              className="dropdown-label dropdown-val"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              1
+            </p>
+            <div className={`dropdown-container ${isDropdownOpen && "open"}`}>
               <p className="dropdown-item dropdown-val">1</p>
               <p className="dropdown-item dropdown-val">0.5</p>
               <p className="dropdown-item dropdown-val">2</p>
