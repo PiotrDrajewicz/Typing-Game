@@ -12,7 +12,7 @@ const Settings = () => {
     <>
       <section className="settings-section">
         <div id="interval-selection" className="setting-area">
-          <label for="interval-val" className="setting-label">
+          {/* <label for="interval-val" className="setting-label">
             Time interval [s]
           </label>
           <select name="interval-val" id="interval-val">
@@ -34,7 +34,17 @@ const Settings = () => {
             <option value="5" className="select-option">
               5
             </option>
-          </select>
+          </select> */}
+          <p className="setting-label">Time interval [s]</p>
+          <div className="dropdown-container-all">
+            <p className="dropdown-label dropdown-val">1</p>
+            <div className="dropdown-container">
+              <p className="dropdown-item dropdown-val">1</p>
+              <p className="dropdown-item dropdown-val">0.5</p>
+              <p className="dropdown-item dropdown-val">2</p>
+              <p className="dropdown-item dropdown-val">3</p>
+            </div>
+          </div>
         </div>
         <div id="music-switch" className="setting-area">
           <p className="setting-label">Music</p>
