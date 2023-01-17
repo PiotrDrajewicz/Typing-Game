@@ -119,6 +119,7 @@ body {
 
 #interval-selection {
   display: flex;
+  align-items: center;
 }
 
 .dropdown-container-all {
@@ -134,9 +135,13 @@ body {
   /* align-self: center;
   justify-self: center; */
   /* width: 60px; */
-  padding: 0.15rem 1.35rem;
+  /* padding: 0.15rem 1.35rem; */
   position: relative;
   cursor: pointer;
+  width: 55px;
+  padding-top: 0.15rem;
+  padding-bottom: 0.15rem;
+  text-align: center;
 }
 
 .dropdown-container {
@@ -152,11 +157,15 @@ body {
   margin-top: 2.1rem;
   opacity: 0;
   /* height: 0; */
+  user-select: none;
+  pointer-events: none;
   transition: all 0.2s;
 }
 
 .dropdown-container.open {
   opacity: 1;
+  cursor: pointer;
+  pointer-events: all;
   /* height: 100%; */
 }
 
@@ -166,8 +175,10 @@ body {
 
 .dropdown-item {
   width: 100%;
-  padding: 0.15rem 0.75rem;
-  cursor: pointer;
+  padding: 0.15rem 0.7rem;
+  /* cursor: pointer; */
+  /* justify-self: center; */
+  text-align: center;
 }
 
 .dropdown-item:hover {
@@ -188,7 +199,7 @@ body {
 .music-on-off p {
   font-size: 1.75rem;
   color: rgba(128, 128, 128, 0.703);
-  transition: all 0.3s ease-out;
+  transition: all 0.2s ease-out;
 }
 
 .music-on-off p.active {

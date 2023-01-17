@@ -11,6 +11,7 @@ import nextId from "react-id-generator";
 import React from "react";
 import SingleLetter from "./SingleLetter";
 import PanelsContext from "./PanelsContainer";
+import { useGlobalContext } from "../context";
 
 const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
@@ -28,13 +29,15 @@ const SinglePanel = memo(
     paused,
     // setRemovedWord,
   }) => {
+    const { popIntervalContext } = useGlobalContext();
+
     const [splittedWord, setSplittedWord] = useState([]);
     const [splittedInput, setSplittedInput] = useState([]);
     const [wordsOnlyCopy, setWordsOnlyCopy] = useState([]);
     const [xPosition, setXPosition] = useState(0);
     const [yPosition, setYPosition] = useState(0);
     const [visibility, setVisibility] = useState(0);
-    const [popInterval, setPopInterval] = useState(2000);
+    const [popInterval, setPopInterval] = useState(popIntervalContext);
     const [popPerm, setPopPerm] = useState(popNumber);
     const [isRunning, setIsRunning] = useState(isGameRunning);
     const [isPaused, setIsPaused] = useState(paused);
@@ -81,15 +84,16 @@ const SinglePanel = memo(
         // wordsOnly.splice(id, 1);
         // setWordsOnly(wordsOnly);
 
-        console.log(`makeVisible item ${popPerm} --------------`);
-        console.log("isRunning in makeVisible: ", isRunning);
-        console.log("displayed: ", displayed);
+        //to poniżej było wyświetlane
+        // console.log(`makeVisible item ${popPerm} --------------`);
+        // console.log("isRunning in makeVisible: ", isRunning);
+        // console.log("displayed: ", displayed);
       }
     };
 
     const assignPermValues = () => {
       if (popNumber || popNumber === 0) {
-        console.log("assignPerm");
+        // console.log("assignPerm");
         setPopPerm(popNumber);
       }
     };
@@ -143,12 +147,13 @@ const SinglePanel = memo(
       // }
     }, [isGameRunning]);
 
-    console.log(`panel ${id} pop number: `, popNumber);
-    console.log(`panels ${id} perm: `, popPerm);
+    // console.log(`panel ${id} pop number: `, popNumber);
+    // console.log(`panels ${id} perm: `, popPerm);
     // console.log(`panels ${id} visibility: `, visibility);
 
-    console.log("is running: ", isRunning);
-    console.log("words only copy: ", wordsOnlyCopy);
+    // console.log("is running: ", isRunning);
+    // console.log("words only copy: ", wordsOnlyCopy);
+    console.log("OOOOOOOOOOOOOOOOOOOOOOOO", popInterval);
 
     return (
       <>

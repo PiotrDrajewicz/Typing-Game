@@ -66,7 +66,7 @@ const PanelsContainer = () => {
         iteration += 1;
         // setPopNumState(numberToPop);
         numFlag = numberToPop;
-        console.log("draw 1");
+        // console.log("draw 1");
         return numberToPop;
       } else {
         const numberToPop =
@@ -77,7 +77,7 @@ const PanelsContainer = () => {
         iteration += 1;
         // setPopNumState(numberToPop);
         numFlag = numberToPop;
-        console.log("draw 2");
+        // console.log("draw 2");
         return numberToPop;
       }
       // console.log("do single w fun", numberToPop);
