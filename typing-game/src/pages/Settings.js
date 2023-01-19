@@ -1,6 +1,8 @@
 import { useRef, useState, useCallback } from "react";
 import { useGlobalContext } from "../context";
 
+const textsArr = ["This thasem aurora pesem", "Plane plate car airport"];
+
 const Settings = () => {
   const { setPopIntervalContext } = useGlobalContext();
 
@@ -125,10 +127,13 @@ const Settings = () => {
           </div>
         </div>
         <div id="text-selection" className="setting-area">
-          <p className="setting-label">Text</p>
+          <p id="text-label" className="setting-label">
+            Text
+          </p>
           <ul className="texts-list">
-            <li className="text-item">This thasem aurora pesem</li>
-            <li className="text-item">Plane plate car airport</li>
+            {textsArr.map((text) => {
+              return <li className="text-item">{text}</li>;
+            })}
           </ul>
         </div>
       </section>

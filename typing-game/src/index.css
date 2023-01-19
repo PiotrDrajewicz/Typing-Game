@@ -217,8 +217,30 @@ body {
   color: black;
 }
 
+#text-selection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#text-label {
+  margin-right: 0;
+}
+
 .texts-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  margin-top: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: 5px;
+  background-color: rgb(234, 201, 162);
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 35px;
+}
+
+.text-item {
+  font-size: 20px;
 }
