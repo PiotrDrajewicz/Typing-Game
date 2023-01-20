@@ -1,7 +1,28 @@
 import { useRef, useState, useCallback } from "react";
 import { useGlobalContext } from "../context";
 
-const textsArr = ["This thasem aurora pesem", "Plane plate car airport"];
+const textsArr = [
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+  "This thasem aurora pesem",
+  "Plane plate car airport",
+];
 
 const Settings = () => {
   const { setPopIntervalContext } = useGlobalContext();
@@ -131,8 +152,12 @@ const Settings = () => {
             Text
           </p>
           <ul className="texts-list">
-            {textsArr.map((text) => {
-              return <li className="text-item">{text}</li>;
+            {textsArr.map((text, index) => {
+              return (
+                <li className="text-item" key={index}>
+                  {text}
+                </li>
+              );
             })}
           </ul>
         </div>
