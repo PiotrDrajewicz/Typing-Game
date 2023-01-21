@@ -30,6 +30,8 @@ const SinglePanel = memo(
     // setRemovedWord,
   }) => {
     const { popIntervalContext } = useGlobalContext();
+    const renderCounter = useRef(0);
+    renderCounter.current++;
 
     const [splittedWord, setSplittedWord] = useState([]);
     const [splittedInput, setSplittedInput] = useState([]);
@@ -153,7 +155,12 @@ const SinglePanel = memo(
 
     // console.log("is running: ", isRunning);
     // console.log("words only copy: ", wordsOnlyCopy);
-    console.log("OOOOOOOOOOOOOOOOOOOOOOOO", popInterval);
+    console.log(
+      "OOOOOOOOOOOOOOOOOOOOOOOO",
+      localStorage.getItem("popInterval")
+    );
+    // console.log("counter: ", renderCounter.current);
+    // console.log("counter: ", renderCounter.current);
 
     return (
       <>
