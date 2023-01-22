@@ -52,7 +52,10 @@ const Settings = () => {
 
   // }
   console.log("RRRRRRRRRRRRRRRRRRRRRRRRR", Number(displayedNum));
-  console.log("PPPPPPPPPPPPPPPPPPPPPPPPP", localStorage.getItem("popInterval"));
+  console.log(
+    "PPPPPPPPPPPPPPPPPPPPPPPPP",
+    Number(localStorage.getItem("popInterval"))
+  );
   return (
     <>
       <section className="settings-section">
