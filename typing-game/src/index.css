@@ -100,6 +100,11 @@ body {
 
 .letter-green {
   color: green;
+  transition: transform 0.1s;
+}
+
+.letter-green + .single-letter.letter-red {
+  transform: translateY(-5px);
 }
 
 .settings-section {

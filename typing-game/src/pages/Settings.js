@@ -25,7 +25,6 @@ const textsArr = [
 ];
 
 const Settings = () => {
-  const { setPopIntervalContext } = useGlobalContext();
   const lsInterval = localStorage.getItem("popInterval");
 
   const [isMusicOn, setIsMusicOn] = useState(true);
@@ -40,17 +39,12 @@ const Settings = () => {
   const changeDisplayedNumber = (e) => {
     setDisplayedNum(e.target.innerHTML);
     setIsDropdownOpen(false);
-    setPopIntervalContext(Number(displayedNum) * 1000);
     localStorage.setItem(
       "popInterval",
       JSON.stringify(Number(e.target.innerHTML) * 1000)
     );
-    console.log("chenged in settings");
   };
 
-  // const openDropdown = () => {
-
-  // }
   console.log("RRRRRRRRRRRRRRRRRRRRRRRRR", Number(displayedNum));
   console.log(
     "PPPPPPPPPPPPPPPPPPPPPPPPP",

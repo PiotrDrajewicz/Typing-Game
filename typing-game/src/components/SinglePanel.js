@@ -12,9 +12,11 @@ import React from "react";
 import SingleLetter from "./SingleLetter";
 import PanelsContext from "./PanelsContainer";
 import { useGlobalContext } from "../context";
+// import clickSound from "../clickSound.mp3";
 
 const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
+// const audio = new Audio(clickSound);
 
 const SinglePanel = memo(
   ({
@@ -29,9 +31,8 @@ const SinglePanel = memo(
     paused,
     // setRemovedWord,
   }) => {
-    const { popIntervalContext } = useGlobalContext();
-    const renderCounter = useRef(0);
-    renderCounter.current++;
+    // const renderCounter = useRef(0);
+    // renderCounter.current++;
 
     const [splittedWord, setSplittedWord] = useState([]);
     const [splittedInput, setSplittedInput] = useState([]);
@@ -39,7 +40,7 @@ const SinglePanel = memo(
     const [xPosition, setXPosition] = useState(0);
     const [yPosition, setYPosition] = useState(0);
     const [visibility, setVisibility] = useState(0);
-    const [popInterval, setPopInterval] = useState(popIntervalContext);
+    const [popInterval, setPopInterval] = useState(1000);
     const [popPerm, setPopPerm] = useState(popNumber);
     const [isRunning, setIsRunning] = useState(isGameRunning);
     const [isPaused, setIsPaused] = useState(paused);
@@ -77,19 +78,6 @@ const SinglePanel = memo(
       if (isRunning && !displayed) {
         setVisibility(1);
         setDisplayed(true);
-
-        // setRemovedWord(wordsOnly[id]);
-
-        // wordsOnlyCopy.splice(popPerm, 1);
-        // console.log("rrrrrr", wordsOnlyCopy[id]);
-        // setWordsOnlyCopy(cleanedWordsOnly);
-        // wordsOnly.splice(id, 1);
-        // setWordsOnly(wordsOnly);
-
-        //to poniżej było wyświetlane
-        // console.log(`makeVisible item ${popPerm} --------------`);
-        // console.log("isRunning in makeVisible: ", isRunning);
-        // console.log("displayed: ", displayed);
       }
     };
 
@@ -110,20 +98,15 @@ const SinglePanel = memo(
     useEffect(() => {
       calculatePosition();
       setWordsOnlyCopy([...wordsOnly]);
+      if (localStorage.getItem("popInterval")) {
+        setPopInterval(Number(localStorage.getItem("popInterval")));
+      }
+      // document.addEventListener("keydown", () => {
+      //   console.log("key pressed");
+      //   // audio.play();
+      // });
+      // return () => document.removeEventListener("keydown");
     }, []);
-
-    //THIS WORKED
-    //but popNumber is changing to undefined and appearance stops
-    // useEffect(() => {
-    //   assignPermValues();
-    //   if (popNumber || popNumber === 0) {
-    //     const timeout = setTimeout(() => {
-    //       makeVisible();
-    //     }, popNumber * popInterval);
-
-    //     return () => clearTimeout(timeout);
-    //   }
-    // }, [popNumber]);
 
     //THIS WORKS
     //appearing based on popPerm and after assigning it a number, it doesn't change. Need to add the start button to start appearance.
@@ -142,25 +125,10 @@ const SinglePanel = memo(
     useEffect(() => {
       setIsRunning(isGameRunning);
       setIsPaused(paused);
-      // if (isPaused) {
-      //   //WŁĄCZ LOSOWANIE NOWYCH POPPERM
-      //   const permNumbers = [...Array(wordsOnly).keys()];
-      //   console.log("words only222: ", permNumbers);
-      // }
     }, [isGameRunning]);
 
-    // console.log(`panel ${id} pop number: `, popNumber);
-    // console.log(`panels ${id} perm: `, popPerm);
-    // console.log(`panels ${id} visibility: `, visibility);
-
-    // console.log("is running: ", isRunning);
-    // console.log("words only copy: ", wordsOnlyCopy);
-    console.log(
-      "OOOOOOOOOOOOOOOOOOOOOOOO",
-      localStorage.getItem("popInterval")
-    );
-    // console.log("counter: ", renderCounter.current);
-    // console.log("counter: ", renderCounter.current);
+    console.log("pop storage: ", localStorage.getItem("popInterval"));
+    console.log("pop var: ", popInterval);
 
     return (
       <>
@@ -202,15 +170,6 @@ const SinglePanel = memo(
         </article>
       </>
     );
-  },
-  (prevProps, nextProps) => {
-    // console.log("prev: ", prev);
-    // console.log("next: ", next);
-    //true -> no re-render
-    //false -> re-render
-    // if (next.popNumber !== undefined) {
-    //   setPopPerm(popNumber);
-    // }
   }
 );
 export default SinglePanel;

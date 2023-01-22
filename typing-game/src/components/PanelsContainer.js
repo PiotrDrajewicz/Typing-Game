@@ -8,6 +8,7 @@ import {
 } from "react";
 import SinglePanel from "./SinglePanel";
 import nextId from "react-id-generator";
+import clickSound from "../clickSound.mp3";
 
 // const defaultText =
 //   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
@@ -16,6 +17,7 @@ const defaultText = "This thasem aurora pesem.";
 let newPopNumbers = [];
 let iteration = 0;
 let numFlag = null;
+const audio = new Audio(clickSound);
 
 const PanelsContainer = () => {
   //tutaj będzie rozbijanie teksu i rozdawanie pojedynczych słów panelom
@@ -134,6 +136,19 @@ const PanelsContainer = () => {
     // inputWindow.current.focus();
   }, [text]);
 
+  useEffect(() => {
+    document.addEventListener("keydown", () => {
+      console.log("key pressed");
+      audio.play();
+    });
+
+    // return () =>
+    //   document.removeEventListener("keydown", () => {
+    //     console.log("key pressed");
+    //     audio.play();
+    //   });
+  }, []);
+
   // useEffect(() => {
   //   const neww = wordsOnly.filter((word) => word !== removedWord);
   //   setWordsOnly(neww);
@@ -174,6 +189,7 @@ const PanelsContainer = () => {
               value={inputValue}
               ref={inputWindow}
               onChange={updateInput}
+              autoComplete="off"
             />
           </div>
           <div className="main-buttons">
