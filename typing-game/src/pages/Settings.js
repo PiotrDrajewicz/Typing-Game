@@ -1,5 +1,6 @@
 import { useRef, useState, useCallback } from "react";
 import { useGlobalContext } from "../context";
+import OnOffSwitch from "../components/OnOffSwitch";
 
 const textsArr = [
   "This thasem aurora pesem",
@@ -54,52 +55,6 @@ const Settings = () => {
     <>
       <section className="settings-section">
         <div id="interval-selection" className="setting-area">
-          {/* <label htmlFor="interval-val" className="setting-label">
-            Time interval [s]
-          </label>
-          <select
-            name="interval-val"
-            id="interval-val"
-            value={lolo}
-            onChange={(e) => setLolo(e.target.value)}
-          >
-            <option
-              value="0.5"
-              className="select-option dropdown-item dropdown-val"
-            >
-              0.5
-            </option>
-            <option
-              value="1"
-              className="select-option dropdown-item dropdown-val"
-            >
-              1
-            </option>
-            <option
-              value="2"
-              className="select-option dropdown-item dropdown-val"
-            >
-              2
-            </option>
-            <option
-              value="3"
-              className="select-option dropdown-item dropdown-val"
-            >
-              3
-            </option>
-            <option
-              value="4"
-              className="select-option dropdown-item dropdown-val"
-            >
-              4
-            </option>
-            <option
-              value="5"
-              className="select-option dropdown-item dropdown-val"
-            >
-              5
-            </option>
-          </select> */}
           <p className="setting-label">Time interval [s]</p>
           <div className="dropdown-container-all">
             <p
@@ -113,13 +68,13 @@ const Settings = () => {
                 className="dropdown-item dropdown-val"
                 onClick={(e) => changeDisplayedNumber(e)}
               >
-                1
+                0.5
               </p>
               <p
                 className="dropdown-item dropdown-val"
                 onClick={(e) => changeDisplayedNumber(e)}
               >
-                0.5
+                1
               </p>
               <p
                 className="dropdown-item dropdown-val"
@@ -150,6 +105,14 @@ const Settings = () => {
             </p>
             <p className={`music-option ${!isMusicOn && "active"}`}>OFF</p>
           </div>
+        </div>
+        <div id="music-switch" className="setting-area">
+          <p className="setting-label">Click sound</p>
+          <OnOffSwitch soundType={"clickSound"} />
+        </div>
+        <div id="music-switch" className="setting-area">
+          <p className="setting-label">Check sound</p>
+          <OnOffSwitch soundType={"checkSound"} />
         </div>
         <div id="text-selection" className="setting-area">
           <p id="text-label" className="setting-label">

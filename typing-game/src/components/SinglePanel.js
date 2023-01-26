@@ -13,10 +13,12 @@ import SingleLetter from "./SingleLetter";
 import PanelsContext from "./PanelsContainer";
 import { useGlobalContext } from "../context";
 // import clickSound from "../clickSound.mp3";
+import checkSound from "../checkSound.wav";
 
 const screenWidth = window.screen.width;
 const screenHeight = window.screen.height;
 // const audio = new Audio(clickSound);
+// const audioCheck = new Audio(checkSound);
 
 const SinglePanel = memo(
   ({
@@ -101,11 +103,6 @@ const SinglePanel = memo(
       if (localStorage.getItem("popInterval")) {
         setPopInterval(Number(localStorage.getItem("popInterval")));
       }
-      // document.addEventListener("keydown", () => {
-      //   console.log("key pressed");
-      //   // audio.play();
-      // });
-      // return () => document.removeEventListener("keydown");
     }, []);
 
     //THIS WORKS
@@ -151,6 +148,8 @@ const SinglePanel = memo(
               // console.log("is all green: ", isAllGreen);
               if (isAllGreen) {
                 panel.current.classList.add("panel-disappear");
+                const audioCheck = new Audio(checkSound);
+                audioCheck.play();
                 setInputValue("");
                 // clear();
               }
