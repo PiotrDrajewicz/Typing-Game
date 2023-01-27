@@ -150,6 +150,11 @@ const SinglePanel = memo(
                 panel.current.classList.add("panel-disappear");
                 const audioCheck = new Audio(checkSound);
                 audioCheck.play();
+                // audioCheck.pause();
+                //I don't know if this timeout gives anything
+                setTimeout(() => {
+                  audioCheck.pause();
+                }, 500);
                 setInputValue("");
                 // clear();
               }

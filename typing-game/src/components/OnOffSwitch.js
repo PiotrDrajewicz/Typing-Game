@@ -1,7 +1,17 @@
 import { useState, useEffect } from "react";
 
 const OnOffSwitch = ({ soundType }) => {
-  const [isMusicOn, setIsMusicOn] = useState();
+  const [isMusicOn, setIsMusicOn] = useState(() => {
+    if (localStorage.getItem(`${soundType}`)) {
+      if (localStorage.getItem(`${soundType}`) === "ON") {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  });
 
   const switchMusicBtn = () => {
     setIsMusicOn((prevVal) => !prevVal);
@@ -17,6 +27,7 @@ const OnOffSwitch = ({ soundType }) => {
       }
     } else {
       setIsMusicOn(true);
+      localStorage.setItem(`${soundType}`, "ON");
     }
   }, []);
 

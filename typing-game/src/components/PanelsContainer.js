@@ -136,15 +136,24 @@ const PanelsContainer = () => {
   }, [text]);
 
   useEffect(() => {
-    document.addEventListener("keydown", () => {
-      const audioClick = new Audio(clickSound);
-      audioClick.play();
-    });
+    if (
+      !localStorage.getItem("clickSound") ||
+      localStorage.getItem("clickSound") === "ON"
+    )
+      document.addEventListener("keydown", () => {
+        const audioClick = new Audio(clickSound);
+        audioClick.play();
+        console.log("LS: ", localStorage.getItem("clickSound"));
+        // setTimeout(() => {
+        //   audioClick.pause();
+        // }, 1000);
+      });
 
     return () =>
       document.removeEventListener("keydown", () => {
         const audioClick = new Audio(clickSound);
         audioClick.play();
+        // audioClick.pause();
       });
   }, []);
 

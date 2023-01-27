@@ -93,18 +93,7 @@ const Settings = () => {
         </div>
         <div id="music-switch" className="setting-area">
           <p className="setting-label">Music</p>
-          <div
-            className="music-on-off"
-            // ref={musicSwitch}
-            onClick={switchMusicBtn}
-          >
-            <p className={`music-option ${isMusicOn && "active"}`}>ON</p>
-            <p id="music-slash" className="music-option">
-              {" "}
-              /{" "}
-            </p>
-            <p className={`music-option ${!isMusicOn && "active"}`}>OFF</p>
-          </div>
+          <OnOffSwitch soundType={"music"} />
         </div>
         <div id="music-switch" className="setting-area">
           <p className="setting-label">Click sound</p>
