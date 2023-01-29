@@ -31,6 +31,7 @@ const PanelsContainer = () => {
   // const [popNumState, setPopNumState] = useState(null);
   const inputWindow = useRef(null);
   const renderr = useRef(0);
+  const clickContainer = useRef(null);
   const [wordsOnlyArrState, setWordsOnlyArrState] = useState([]);
   // const [removedWord, setRemovedWord] = useState("");
 
@@ -136,24 +137,29 @@ const PanelsContainer = () => {
   }, [text]);
 
   useEffect(() => {
+    const clickContainerElement = clickContainer.current;
+
     if (
       !localStorage.getItem("clickSound") ||
       localStorage.getItem("clickSound") === "ON"
-    )
-      document.addEventListener("keydown", () => {
+    ) {
+      clickContainerElement.addEventListener("keydown", () => {
         const audioClick = new Audio(clickSound);
         audioClick.play();
-        console.log("LS: ", localStorage.getItem("clickSound"));
-        // setTimeout(() => {
-        //   audioClick.pause();
-        // }, 1000);
       });
+    }
+
+    if (localStorage.getItem("clickSound") === "OFF") {
+      clickContainerElement.removeEventListener("keydown", () => {
+        const audioClick = new Audio(clickSound);
+        audioClick.play();
+      });
+    }
 
     return () =>
-      document.removeEventListener("keydown", () => {
+      clickContainerElement.removeEventListener("keydown", () => {
         const audioClick = new Audio(clickSound);
         audioClick.play();
-        // audioClick.pause();
       });
   }, []);
 
@@ -166,7 +172,7 @@ const PanelsContainer = () => {
 
   return (
     <>
-      <div className="input-panels-container">
+      <div ref={clickContainer} className="input-panels-container">
         <section className="panels-container">
           {wordsOnly.map((word, index) => {
             // const generatedId = nextId();

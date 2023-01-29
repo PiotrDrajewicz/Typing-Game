@@ -148,13 +148,13 @@ const SinglePanel = memo(
               // console.log("is all green: ", isAllGreen);
               if (isAllGreen) {
                 panel.current.classList.add("panel-disappear");
-                const audioCheck = new Audio(checkSound);
-                audioCheck.play();
-                // audioCheck.pause();
-                //I don't know if this timeout gives anything
-                setTimeout(() => {
-                  audioCheck.pause();
-                }, 500);
+                if (
+                  !localStorage.getItem("checkSound") ||
+                  localStorage.getItem("checkSound") === "ON"
+                ) {
+                  const audioCheck = new Audio(checkSound);
+                  audioCheck.play();
+                }
                 setInputValue("");
                 // clear();
               }
