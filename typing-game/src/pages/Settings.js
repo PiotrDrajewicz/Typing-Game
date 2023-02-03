@@ -1,6 +1,8 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef, useState, useCallback, useEffect } from "react";
 import { useGlobalContext } from "../context";
 import OnOffSwitch from "../components/OnOffSwitch";
+
+const poemsUrl = "https://poetrydb.org/author,title/Shakespeare;Sonnet";
 
 const textsArr = [
   "This thasem aurora pesem",
@@ -31,6 +33,7 @@ const Settings = () => {
   const [isMusicOn, setIsMusicOn] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [displayedNum, setDisplayedNum] = useState(lsInterval / 1000 || 1);
+  const [poems, setPoems] = useState([]);
   // const musicSwitch = useRef(null);
 
   const switchMusicBtn = () => {
@@ -45,6 +48,21 @@ const Settings = () => {
       JSON.stringify(Number(e.target.innerHTML) * 1000)
     );
   };
+
+  const fetchData = useCallback(async (url) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      setPoems(data);
+      // console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  useEffect(() => {
+    fetchData(poemsUrl);
+  }, []);
 
   console.log("RRRRRRRRRRRRRRRRRRRRRRRRR", Number(displayedNum));
   console.log(
@@ -108,10 +126,11 @@ const Settings = () => {
             Text
           </p>
           <ul className="texts-list">
-            {textsArr.map((text, index) => {
+            {poems.map((text, index) => {
+              const { title } = text;
               return (
                 <li className="text-item" key={index}>
-                  {text}
+                  {title}
                 </li>
               );
             })}

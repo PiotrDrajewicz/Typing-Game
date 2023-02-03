@@ -302,7 +302,7 @@ body {
   /* padding: 1rem 1.5rem; */
   border-radius: 5px;
   background-color: var(--light-brown);
-  width: 500px;
+  /* width: 600px; */
   height: 310px;
   display: flex;
   flex-direction: column;
