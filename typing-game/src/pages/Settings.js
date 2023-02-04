@@ -60,6 +60,10 @@ const Settings = () => {
     }
   });
 
+  const putTitleInLs = (title) => {
+    localStorage.setItem("title", title);
+  };
+
   useEffect(() => {
     fetchData(poemsUrl);
   }, []);
@@ -129,7 +133,11 @@ const Settings = () => {
             {poems.map((text, index) => {
               const { title } = text;
               return (
-                <li className="text-item" key={index}>
+                <li
+                  className="text-item"
+                  key={index}
+                  onClick={() => putTitleInLs(title)}
+                >
                   {title}
                 </li>
               );

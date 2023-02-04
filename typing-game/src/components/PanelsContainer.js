@@ -33,6 +33,10 @@ const PanelsContainer = () => {
   const renderr = useRef(0);
   const clickContainer = useRef(null);
   const [wordsOnlyArrState, setWordsOnlyArrState] = useState([]);
+  const [poemTitle, setPoemTitle] = useState("");
+  const [poemUrl, setPoemUrl] = useState(
+    "https://poetrydb.org/author,title/Shakespeare;Sonnet 1: From fairest creatures we desire increase"
+  );
   // const [removedWord, setRemovedWord] = useState("");
 
   const splitText = (text) => {
@@ -114,6 +118,17 @@ const PanelsContainer = () => {
     iteration = 0;
   };
 
+  const fetchData = useCallback(async (url) => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      const poemObj = await data[0];
+      console.log("tekst", poemObj);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
   // useEffect(() => {
   //   drawPopNumber();
   // }, [popNumbers.length]);
@@ -137,7 +152,18 @@ const PanelsContainer = () => {
   }, [text]);
 
   useEffect(() => {
+    if (localStorage.getItem("title")) {
+      const title = localStorage.getItem("title");
+      // console.log("title", title);
+      setPoemUrl(`https://poetrydb.org/author,title/Shakespeare;${title}`);
+    }
+    fetchData(poemUrl);
+  }, [poemTitle]);
+
+  useEffect(() => {
     const clickContainerElement = clickContainer.current;
+
+    setPoemTitle(localStorage.getItem("title"));
 
     if (
       !localStorage.getItem("clickSound") ||
@@ -169,6 +195,7 @@ const PanelsContainer = () => {
   // }, [removedWord]);
 
   // console.log("pop numsss: ", newPopNumbers);
+  // console.log("title", poemUrl);
 
   return (
     <>
