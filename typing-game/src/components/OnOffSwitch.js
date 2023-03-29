@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 
+const test = 'to jest test';
+
 const OnOffSwitch = ({ soundType }) => {
   const [isMusicOn, setIsMusicOn] = useState(() => {
     if (localStorage.getItem(`${soundType}`)) {
