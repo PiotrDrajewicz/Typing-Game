@@ -330,6 +330,14 @@ body {
   filter: brightness(0.9);
 }
 
+.text-item .active {
+  background-color: red;
+}
+
+/* .text-item:focus {
+  background-color: black;
+} */
+
 .error-container {
   display: flex;
   justify-content: center;

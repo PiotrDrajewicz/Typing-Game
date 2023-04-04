@@ -34,6 +34,8 @@ const Settings = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [displayedNum, setDisplayedNum] = useState(lsInterval / 1000 || 1);
   const [poems, setPoems] = useState([]);
+  const [isPoemActive, setIsPoemActive] = useState(false);
+  const poemItem = useRef(null);
   // const musicSwitch = useRef(null);
 
   const switchMusicBtn = () => {
@@ -62,6 +64,7 @@ const Settings = () => {
 
   const putTitleInLs = (title) => {
     localStorage.setItem("title", title);
+    console.log(poemItem.current.value);
   };
 
   useEffect(() => {
@@ -134,9 +137,11 @@ const Settings = () => {
               const { title } = text;
               return (
                 <li
-                  className="text-item"
+                  className={`text-item`}
                   key={index}
+                  ref={poemItem}
                   onClick={() => putTitleInLs(title)}
+                  // isActive={false}
                 >
                   {title}
                 </li>

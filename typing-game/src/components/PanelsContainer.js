@@ -124,6 +124,7 @@ const PanelsContainer = () => {
       const data = await response.json();
       const poemObj = await data[0];
       console.log("tekst", poemObj);
+      setText(poemObj.lines.join(' '));
     } catch (error) {
       console.log(error);
     }
