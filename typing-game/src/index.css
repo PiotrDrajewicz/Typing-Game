@@ -63,14 +63,22 @@ body {
   filter: brightness(0.8);
 }
 
-/* .input-panels-container {
+.score-counter-container {
   display: flex;
-  flex-direction: column;
-} */
+  justify-content: flex-end;
+}
 
 .score-counter {
   font-size: 1.5rem;
-  /* margin-left: 200px; */
+  margin-right: 11rem;
+  display: flex;
+  position: relative;
+}
+
+.score-counter-digit {
+  font-size: 1.5rem;
+  position: absolute;
+  margin-left: 4rem;
 }
 
 .input-section {
@@ -355,4 +363,14 @@ body {
   justify-content: center;
   align-items: center;
   height: 90vh;
+}
+
+.stats-container {
+  display: flex;
+  justify-content: center;
+}
+
+.stats-label {
+  font-size: 1.5rem;
+  margin-top: 1.5rem;
 }

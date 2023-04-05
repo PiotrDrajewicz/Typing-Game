@@ -37,6 +37,7 @@ const PanelsContainer = () => {
   const [poemUrl, setPoemUrl] = useState(
     "https://poetrydb.org/author,title/Shakespeare;Sonnet 1: From fairest creatures we desire increase"
   );
+  const [scoreCounter, setScoreCounter] = useState(0);
   // const [removedWord, setRemovedWord] = useState("");
 
   const splitText = (text) => {
@@ -130,6 +131,18 @@ const PanelsContainer = () => {
     }
   });
 
+  const increaseScore = () => {
+    setScoreCounter(prevVal => prevVal + 0.5);
+    if (!localStorage.getItem('highscore')) {
+      localStorage.setItem('highscore', 0);
+    } else {
+      const lsHighscore = localStorage.getItem('highscore');
+      if (scoreCounter > lsHighscore) {
+        localStorage.setItem('highscore', scoreCounter);
+      }
+    }
+  }
+
   // useEffect(() => {
   //   drawPopNumber();
   // }, [popNumbers.length]);
@@ -201,7 +214,12 @@ const PanelsContainer = () => {
   return (
     <>
       <div ref={clickContainer} className="input-panels-container">
-        <p className="score-counter">score: </p>
+        <div className="score-counter-container">
+          {/* <p className="score-counter">score: {scoreCounter}</p> */}
+            <span className="score-counter">score: 
+              <p className="score-counter-digit">{scoreCounter}</p>
+            </span>
+        </div>
         <section className="panels-container">
           {wordsOnly.map((word, index) => {
             // const generatedId = nextId();
@@ -219,6 +237,7 @@ const PanelsContainer = () => {
                 wordsOnly={wordsOnly}
                 setWordsOnly={setWordsOnly}
                 paused={paused}
+                increaseScore={increaseScore}
                 // setRemovedWord={setRemovedWord}
               />
             );

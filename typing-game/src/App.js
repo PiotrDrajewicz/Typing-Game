@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./pages/Home";
+import Stats from "./pages/Stats";
 import Settings from "./pages/Settings";
 import Error from "./pages/Error";
 import SharedLayout from "./components/SharedLayout";
@@ -11,6 +12,7 @@ function App() {
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<Home />} />
+          <Route path="/stats" element={<Stats />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="*" element={<Error />} />
         </Route>

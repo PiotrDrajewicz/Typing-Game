@@ -79,6 +79,8 @@ const Settings = () => {
     fetchData(poemsUrl);
   }, []);
 
+  console.log('ppp', Number(activePoemId));
+
   console.log("RRRRRRRRRRRRRRRRRRRRRRRRR", Number(displayedNum));
   console.log(
     "PPPPPPPPPPPPPPPPPPPPPPPPP",
@@ -145,7 +147,7 @@ const Settings = () => {
               const { title } = text;
               return (
                 <li
-                  className={`text-item ${index == activePoemId ? 'active' : ''}`}
+                  className={`text-item ${index === Number(activePoemId) ? 'active' : ''}`}
                   id={index}
                   key={index}
                   onClick={(e) => {

@@ -31,6 +31,7 @@ const SinglePanel = memo(
     wordsOnly,
     setWordsOnly,
     paused,
+    increaseScore
     // setRemovedWord,
   }) => {
     // const renderCounter = useRef(0);
@@ -148,6 +149,7 @@ const SinglePanel = memo(
               // console.log("is all green: ", isAllGreen);
               if (isAllGreen) {
                 panel.current.classList.add("panel-disappear");
+                increaseScore();
                 if (
                   !localStorage.getItem("checkSound") ||
                   localStorage.getItem("checkSound") === "ON"
