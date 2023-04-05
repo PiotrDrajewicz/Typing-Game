@@ -1,4 +1,4 @@
-import { useRef, useState, useCallback, useEffect } from "react";
+import { useRef, useState, useCallback, useEffect, createRef } from "react";
 import { useGlobalContext } from "../context";
 import OnOffSwitch from "../components/OnOffSwitch";
 
@@ -29,13 +29,15 @@ const textsArr = [
 
 const Settings = () => {
   const lsInterval = localStorage.getItem("popInterval");
+  const refArr = [];
 
   const [isMusicOn, setIsMusicOn] = useState(true);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [displayedNum, setDisplayedNum] = useState(lsInterval / 1000 || 1);
   const [poems, setPoems] = useState([]);
-  const [isPoemActive, setIsPoemActive] = useState(false);
-  const poemItem = useRef(null);
+  const [activePoemId, setActivePoemId] = useState(localStorage.getItem('poem id'));
+  // const poemItem = useRef(null);
+  // const refs = useRef(refArr);
   // const musicSwitch = useRef(null);
 
   const switchMusicBtn = () => {
@@ -62,14 +64,36 @@ const Settings = () => {
     }
   });
 
-  const putTitleInLs = (title) => {
+  const putTitleInLs = (title, index) => {
     localStorage.setItem("title", title);
-    console.log(poemItem.current.value);
+    localStorage.setItem("poem id", index);
   };
+  
+  const markPoemActive = (e) => {
+    // console.log(poemItem.current.innerHTML);
+    // console.log(title);
+    // console.log(index);
+    console.log('iddd', e.target);
+    // console.log('iddd', refs.current);
+    setActivePoemId(e.target.id);
+  }
+
+  // const makeRefArray = () => {
+  //   for (let i = 0; i < poems.length; i++) {
+  //     refArr.push(createRef());
+  //   }
+  // }
 
   useEffect(() => {
     fetchData(poemsUrl);
   }, []);
+
+  // useEffect(() => {
+  //   makeRefArray();
+  // }, [poems]);
+  // console.log('refff', refArr);
+
+  console.log('active id', activePoemId);
 
   console.log("RRRRRRRRRRRRRRRRRRRRRRRRR", Number(displayedNum));
   console.log(
@@ -137,10 +161,12 @@ const Settings = () => {
               const { title } = text;
               return (
                 <li
-                  className={`text-item`}
+                  className={`text-item ${index == activePoemId ? 'active' : ''}`}
+                  id={index}
                   key={index}
-                  ref={poemItem}
-                  onClick={() => putTitleInLs(title)}
+                  // ref={refs.current[index]}
+                  onClick={(e) => {putTitleInLs(title, index)
+                  markPoemActive(e)}}
                   // isActive={false}
                 >
                   {title}

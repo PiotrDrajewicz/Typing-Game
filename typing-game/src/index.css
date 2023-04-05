@@ -12,6 +12,7 @@
   --orange: rgb(240, 98, 46);
   --cream: bisque;
   --light-brown: rgb(234, 201, 162);
+  --light-brown-dark: rgb(160, 142, 121);
   --gray: rgb(248, 230, 208);
 }
 
@@ -326,17 +327,13 @@ body {
 }
 
 .text-item:hover {
-  background-color: rgb(234, 201, 162);
+  background-color: var(--light-brown);
   filter: brightness(0.9);
 }
 
-.text-item .active {
-  background-color: red;
+.text-item.active {
+  background-color: var(--orange);
 }
-
-/* .text-item:focus {
-  background-color: black;
-} */
 
 .error-container {
   display: flex;
