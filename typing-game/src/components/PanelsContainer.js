@@ -201,6 +201,7 @@ const PanelsContainer = () => {
   return (
     <>
       <div ref={clickContainer} className="input-panels-container">
+        <p className="score-counter">score: </p>
         <section className="panels-container">
           {wordsOnly.map((word, index) => {
             // const generatedId = nextId();

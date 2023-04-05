@@ -63,6 +63,16 @@ body {
   filter: brightness(0.8);
 }
 
+/* .input-panels-container {
+  display: flex;
+  flex-direction: column;
+} */
+
+.score-counter {
+  font-size: 1.5rem;
+  /* margin-left: 200px; */
+}
+
 .input-section {
   display: flex;
   /* justify-content: center; */
@@ -324,6 +334,7 @@ body {
   align-items: center;
   user-select: none;
   cursor: pointer;
+  transition: filter 100ms;
 }
 
 .text-item:hover {
@@ -333,6 +344,10 @@ body {
 
 .text-item.active {
   background-color: var(--orange);
+}
+
+.text-item:active {
+  filter: brightness(0.8);
 }
 
 .error-container {

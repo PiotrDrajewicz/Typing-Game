@@ -36,9 +36,6 @@ const Settings = () => {
   const [displayedNum, setDisplayedNum] = useState(lsInterval / 1000 || 1);
   const [poems, setPoems] = useState([]);
   const [activePoemId, setActivePoemId] = useState(localStorage.getItem('poem id'));
-  // const poemItem = useRef(null);
-  // const refs = useRef(refArr);
-  // const musicSwitch = useRef(null);
 
   const switchMusicBtn = () => {
     setIsMusicOn((prevVal) => !prevVal);
@@ -73,27 +70,14 @@ const Settings = () => {
     // console.log(poemItem.current.innerHTML);
     // console.log(title);
     // console.log(index);
-    console.log('iddd', e.target);
     // console.log('iddd', refs.current);
+    console.log('iddd', e.target);
     setActivePoemId(e.target.id);
   }
-
-  // const makeRefArray = () => {
-  //   for (let i = 0; i < poems.length; i++) {
-  //     refArr.push(createRef());
-  //   }
-  // }
 
   useEffect(() => {
     fetchData(poemsUrl);
   }, []);
-
-  // useEffect(() => {
-  //   makeRefArray();
-  // }, [poems]);
-  // console.log('refff', refArr);
-
-  console.log('active id', activePoemId);
 
   console.log("RRRRRRRRRRRRRRRRRRRRRRRRR", Number(displayedNum));
   console.log(
@@ -164,10 +148,10 @@ const Settings = () => {
                   className={`text-item ${index == activePoemId ? 'active' : ''}`}
                   id={index}
                   key={index}
-                  // ref={refs.current[index]}
-                  onClick={(e) => {putTitleInLs(title, index)
-                  markPoemActive(e)}}
-                  // isActive={false}
+                  onClick={(e) => {
+                    putTitleInLs(title, index);
+                    markPoemActive(e);
+                }}
                 >
                   {title}
                 </li>
