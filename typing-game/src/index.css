@@ -12,7 +12,7 @@
   --orange: rgb(240, 98, 46);
   --cream: bisque;
   --light-brown: rgb(234, 201, 162);
-  --light-brown-dark: rgb(160, 142, 121);
+  --light-brown-dark: rgb(199, 177, 152);
   --gray: rgb(248, 230, 208);
 }
 
@@ -30,6 +30,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--light-brown);
+  border-bottom: 1px solid var(--light-brown-dark)
 }
 
 .nav-item {
@@ -66,13 +67,32 @@ body {
 .score-counter-container {
   display: flex;
   justify-content: flex-end;
+  /* background-color: red; */
+  /* max-width: 400px; */
+  /* margin-left: 50%; */
 }
 
 .score-counter {
   font-size: 1.5rem;
-  margin-right: 11rem;
+  /* margin-right: 11rem; */
   display: flex;
   position: relative;
+  background-color: var(--light-brown);
+  padding-right: 11rem;
+  padding-left: 2rem;
+}
+
+.score-counter::before {
+  content: "";
+  position: absolute;
+  /* background-color: var(--cream); */
+  background-color: red;
+  opacity: .2;
+  width: 50px;
+  height: 32px;
+  /* right: 20px; */
+  left: -30px;
+  border-top-right-radius: 15px;
 }
 
 .score-counter-digit {
