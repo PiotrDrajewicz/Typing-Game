@@ -1,8 +1,12 @@
 import { useRef, useState, useCallback, useEffect, createRef } from "react";
 import { useGlobalContext } from "../context";
 import OnOffSwitch from "../components/OnOffSwitch";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fa8, faCircleNotch, faListCheck } from '@fortawesome/free-solid-svg-icons'
+
 
 const poemsUrl = "https://poetrydb.org/author,title/Shakespeare;Sonnet";
+// fontawesome.library.add(faCoffee);
 
 const textsArr = [
   "This thasem aurora pesem",
@@ -27,6 +31,7 @@ const textsArr = [
   "Plane plate car airport",
 ];
 
+
 const Settings = () => {
   const lsInterval = localStorage.getItem("popInterval");
   const refArr = [];
@@ -36,6 +41,7 @@ const Settings = () => {
   const [displayedNum, setDisplayedNum] = useState(lsInterval / 1000 || 1);
   const [poems, setPoems] = useState([]);
   const [activePoemId, setActivePoemId] = useState(localStorage.getItem('poem id'));
+  const [loading, setLoading] = useState(false);
 
   const switchMusicBtn = () => {
     setIsMusicOn((prevVal) => !prevVal);
@@ -51,12 +57,15 @@ const Settings = () => {
   };
 
   const fetchData = useCallback(async (url) => {
+    setLoading(true);
     try {
       const response = await fetch(url);
       const data = await response.json();
+      setLoading(false);
       setPoems(data);
       // console.log(data);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   });
@@ -142,6 +151,7 @@ const Settings = () => {
           <p id="text-label" className="setting-label">
             Text
           </p>
+          {loading ? <FontAwesomeIcon className="texts-loading-icon" icon={faListCheck} beat size='3x' /> : 
           <ul className="texts-list">
             {poems.map((text, index) => {
               const { title } = text;
@@ -159,7 +169,7 @@ const Settings = () => {
                 </li>
               );
             })}
-          </ul>
+          </ul>}
         </div>
       </section>
     </>

@@ -12,7 +12,8 @@ import clickSound from "../clickSound.wav";
 
 // const defaultText =
 //   "This allows users to link 345 to a specific portion of a page, using a text snippet provided in the book.";
-const defaultText = "This thasem aurora pesem.";
+// const defaultText = "This thasem aurora pesem.";
+const defaultText = 'tak tak tak tak tak tak tak tak tak tak tak tak tak tak tak tak tak tak ';
 // const popNumbers = [];
 let newPopNumbers = [];
 let iteration = 0;
@@ -116,6 +117,7 @@ const PanelsContainer = () => {
 
   const resetGame = () => {
     setWordsOnly([]);
+    setScoreCounter(0);
     iteration = 0;
   };
 
@@ -125,7 +127,7 @@ const PanelsContainer = () => {
       const data = await response.json();
       const poemObj = await data[0];
       console.log("tekst", poemObj);
-      setText(poemObj.lines.join(' '));
+      // setText(poemObj.lines.join(' '));
     } catch (error) {
       console.log(error);
     }
