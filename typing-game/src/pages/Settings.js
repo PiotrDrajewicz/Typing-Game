@@ -42,6 +42,7 @@ const Settings = () => {
   const [poems, setPoems] = useState([]);
   const [activePoemId, setActivePoemId] = useState(localStorage.getItem('poem id'));
   const [loading, setLoading] = useState(false);
+  const dropdownRef = useRef(null);
 
   const switchMusicBtn = () => {
     setIsMusicOn((prevVal) => !prevVal);
@@ -84,8 +85,17 @@ const Settings = () => {
     setActivePoemId(e.target.id);
   }
 
+  const closeDropdown = () => {
+    document.body.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('dropdown-val')) {
+        setIsDropdownOpen(false);
+      }
+    })
+  }
+
   useEffect(() => {
     fetchData(poemsUrl);
+    closeDropdown();
   }, []);
 
   console.log('ppp', Number(activePoemId));
@@ -109,24 +119,28 @@ const Settings = () => {
             </p>
             <div className={`dropdown-container ${isDropdownOpen && "open"}`}>
               <p
+                ref={dropdownRef}
                 className="dropdown-item dropdown-val"
                 onClick={(e) => changeDisplayedNumber(e)}
               >
                 0.5
               </p>
               <p
+                ref={dropdownRef}
                 className="dropdown-item dropdown-val"
                 onClick={(e) => changeDisplayedNumber(e)}
               >
                 1
               </p>
               <p
+                ref={dropdownRef}
                 className="dropdown-item dropdown-val"
                 onClick={(e) => changeDisplayedNumber(e)}
               >
                 2
               </p>
               <p
+                ref={dropdownRef}
                 className="dropdown-item dropdown-val"
                 onClick={(e) => changeDisplayedNumber(e)}
               >

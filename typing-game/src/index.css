@@ -81,6 +81,15 @@ body {
   padding-right: 11rem;
   padding-left: 1rem;
   border-bottom-left-radius: 7px;
+  z-index: -1;
+  transform: translateY(-35px);
+  opacity: 0;
+  transition: all .5s;
+}
+
+.score-counter.show {
+  opacity: 1;
+  transform: translateY(0px);
 }
 
 /* .score-counter::before {

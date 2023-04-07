@@ -39,14 +39,14 @@ const PanelsContainer = () => {
     "https://poetrydb.org/author,title/Shakespeare;Sonnet 1: From fairest creatures we desire increase"
   );
   const [scoreCounter, setScoreCounter] = useState(0);
-  // const [removedWord, setRemovedWord] = useState("");
+  const [showCounter, setShowCounter] = useState(false);
 
   const splitText = (text) => {
     const regexWordsNumbers = /(\w+)/gi;
     const wordsOnlyArr = text
       .match(regexWordsNumbers)
       .filter((word) => {
-        if (isNaN(word) === true && word.length >= 3) {
+        if (isNaN(word) === true && word.length >= 5) {
           return word;
         }
       })
@@ -127,7 +127,7 @@ const PanelsContainer = () => {
       const data = await response.json();
       const poemObj = await data[0];
       console.log("tekst", poemObj);
-      // setText(poemObj.lines.join(' '));
+      setText(poemObj.lines.join(' '));
     } catch (error) {
       console.log(error);
     }
@@ -179,6 +179,7 @@ const PanelsContainer = () => {
   useEffect(() => {
     const clickContainerElement = clickContainer.current;
 
+    setShowCounter(true);
     setPoemTitle(localStorage.getItem("title"));
 
     if (
@@ -218,7 +219,7 @@ const PanelsContainer = () => {
       <div ref={clickContainer} className="input-panels-container">
         <div className="score-counter-container">
           {/* <p className="score-counter">score: {scoreCounter}</p> */}
-            <span className="score-counter">score: 
+            <span className={`score-counter ${showCounter && 'show'}`}>score: 
               <p className="score-counter-digit">{scoreCounter}</p>
             </span>
         </div>
